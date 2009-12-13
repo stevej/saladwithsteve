@@ -1,0 +1,51 @@
+---
+layout: post
+title: "DTrace for Java 6 on Leopard"
+---
+<p>
+    When Java 6 for Leopard was released a few weeks ago, one thing that nobody seemed to notice was that Java now had DTrace probes on par with Java on Solaris.
+    </p>
+    <p>
+    What you expect is there:
+    <ul>
+    <li><a href="http://www.solarisinternals.com/wiki/index.php/DTrace_Topics_Java">DTrace Topics: Java</a></li>
+    <li><a href="http://java.sun.com/javase/6/docs/technotes/guides/vm/dtrace.html">DTrace Probes in HotSpot VM</a></li>
+    </ul>
+    </p>
+    <p>
+    With one exception: <code>jstack</code> doesn't appear to work. <code>ustack</code> works fine.
+    </p>
+
+    <p>
+    <pre>
+    <code>
+    $ sudo dtrace -x jstackstrsize=2048 -n 'syscall::read:entry /execname == "java"/ { jstack(); }' 
+
+    dtrace: description 'syscall::read:entry ' matched 1 probe
+    CPU     ID                    FUNCTION:NAME
+    3  17600                       read:entry 
+
+    2  17600                       read:entry 
+
+    3  17600                       read:entry 
+
+    3  17600                       read:entry 
+
+    2  17600                       read:entry 
+
+    2  17600                       read:entry 
+
+    2  17600                       read:entry 
+
+    2  17600                       read:entry
+    </code>
+    </pre>
+    </p>
+
+    <p>
+    There should be java stack traces under each read:entry line. (This is true even with <code>-XX:+ExtendedDTraceProbes</code> enabled)
+    </p>
+
+    <p>
+    I used robey's scarling for my guinea pig and had a lot of fun poking around at it with dtrace.
+    </p>

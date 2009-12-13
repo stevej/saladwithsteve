@@ -1,0 +1,17 @@
+---
+layout: post
+title: ""
+---
+From the <a href="http://www.cl.cam.ac.uk/~mgk25/unicode.html">Unicode on Unix FAQ</a> (thanks <a href="http://nelson.monkey.org/~nelson/weblog/">Nelson</a>!):
+    <br /><br />
+    <small><em>
+    UTF-8 is a stateless encoding, i.e. a self-terminating short byte sequence determines completely which character is meant, independent of any switching state. G0 and G1 in ISO 10646-1 are those of ISO 8859-1, and G2/G3 do not exist in ISO 10646, because every character has a fixed position and no switching takes place. With UTF-8, it is not possible that your terminal remains switched to strange graphics-character mode after you accidentally dumped a binary file to it. This makes a terminal in UTF-8 mode much more robust than with ISO 2022 and it is therefore useful to have a way of locking a terminal into UTF-8 mode such that it can't accidentally go back to the ISO 2022 world.
+    </em></small>
+    <br /><br />
+    I had noticed that I hadn't <a href="http://www.wired.com/wired/archive/3.12/jargon_watch.html">gone cyrillic</a> since I moved to OS X almost two years ago. UTF-8 is the default encoding for my Terminal on OS X but I never made the connection. This used to be a real problem for me as a kid when my friend Ray's System V.4 machine spent a fair amount of time at my house. I was young and stupid and would accidentally cat binaries to my terminal, leaving it in a completely unusable state. For some reason, there was no /bin/reset on that particular SysV machine and I was unable to logout so I would have to unplug the terminal from the rs232 port in the back and plug it into one of the unused ones farther down so I could login again. Once in a while, I'd forget that I'd used up all 16 of the tty's on the machine and would be out of available terminals. At that dreaded moment, I'd have to reboot the machine.  
+    <br /><br />
+    You really don't want to reboot a 1980's-era Unix mini without properly shutting down...
+    <br /><br />
+    ... So, after reinstalling the operating system from tape and praying that my latest backups (if I had bothered) were good, I'd go on for another few weeks accidentally catting binaries like a fool until I ran out of tty's again, playing Serial Port Leapfrog along the way, reinstalling my OS every few months or so. After all that, you'd think that I would've written my own 'cat' wrapper that would check the magic number to make sure only text files were catted out.  You'd think.
+    <br /><br />
+    Life's a lot better with Unicode.

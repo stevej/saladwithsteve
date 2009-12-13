@@ -1,0 +1,40 @@
+---
+layout: post
+title: "Blogger Hacked Redux"
+---
+Yes, Blogger was cracked. It's true. It's been Slashdotted, LawMeme'd, Daypop'd, and News.com'd. Most of the commentary is completely rehashed crap  on the danger of storing passwords on remote servers and people are, as usual, missing the big picture: operating system security is in a miserable state. The Blogger software didn't get hacked, we had an unpatched service running on a unix machine we barely look and some little shit noticed it before we did. People are making it out to be the end of the world, they're ready to crawl into their bunkers with their old Playboys and bottles of Wild Turkey. Should we have found it earlier? Of course. Did we own up to it instead of brushing it under the rug like so many other companies who have been compromised? Absolutely. 
+    <br /><br />
+    I wrote a letter to Anil Dash about his <a href="http://www.dashes.com/anil/index.php?archives/003780.php">remarks</a> claiming that the weblog developer community is nothing but a bunch of amatuers who have no knowledge
+    of computer security:
+    <blockquote>
+    <strong>From:</strong> steve jenson<br />
+    <strong>To:</strong> Anil Dash<br /><br />
+    Quoting from your site:<br />
+    """But, with the exception of Mena and Ben Trott's work on Movable Type, which has been informed by Ben's background in cryptography and other security practices, there hasn't been a seriousness about the responsibility of developing these applications as weblogs move to being a critical communication tool for people. """
+    <br /><br />
+    Anil,
+    <br /><br />
+    While I appreciate the mostly positive outlook you've taken in your coverage of the Blogger crack fiasco, I'm rather offended by the above paragraph. My own background in computer security is quite strong. I don't particularly feel the need to qualify that but I will if you want. Also, I take Blogger development very seriously. Ev's worked with me for over a year now, I think he could vouch.
+    
+    <br /><br /><br />
+    I know you don't claim to be an expert in this area but a knowledge of cryptography is not a panacea when it comes to system software security. As often as not, misimplemented crypto is the catalyst of vulernabilities. This is exactly how DeCSS came to exist; a set top box manufacturer didn't fully appreciate the nuances of key management and the rest of us are pretty darn glad for it.
+    <br />
+    <br /><br />
+    There's a bigger fish to fry here, I think. System software is still written in C, a 30-year old language with 30-year old security flaws. "Modern" operating systems still lack decent confinement mechanisms, stuff which has been understood for at least the past two decades (look at the KeyKOS operating system and it's modern ancestor EROS (eros-os.org)), PKI is a house of cards; your SSL'd credit card transactions only _seem_ secure through a faulty (and faulted) third party. Toolkits for creating trusted channels between parties are still not widely deployed; your IMs are unprotected and there's no way of even verifying that this email actually came from me.
+    <br /><br />
+    Instead of the punditocracy rehashing the same "beware the ides of march and don't store your passwords on a remote server" line, maybe they could learn and talk about these issues instead? Perhaps you could start this trend.
+    <br /><br />
+    <br />
+    best regards,<br />
+    steve jenson
+    <br /><br />
+    BTW, you're site is running with a remotely exploitable version of PHP. You should talk to your hosting provider about it.
+    
+    
+    
+    </blockquote>
+    
+    
+    
+    
+    

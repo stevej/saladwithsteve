@@ -1,0 +1,16 @@
+---
+layout: post
+title: "GVN and gold"
+---
+<p>
+    Two things popped up on my radar recently:
+    </p>
+    <p>
+    <a href="http://code.google.com/p/gvn/">gvn</a>, Google's wrappers around Subversion to help them work in their code-review heavy workflow. Even if you're not into code reviews, <code>tkdiff</code> integration is a nice improvement over <code>colordiff</code> or <code>FileMerge</code>.
+    </p>
+    <p>
+    <a href="http://www.airs.com/blog/archives/164">gold</a>, a new ELF linker built with giant binaries in mind. When you're building 900MB+ static binaries routinely, linking speed matters. gold claims to be at least 5x faster currently. Even if you have a massive distcc cluster, linking is still serial. One of gold's future design goals is to be concurrent and that would be pretty awesome. Imagine how fast I could link with a concurrent linker on my 8-core Mac Pro! Not that using an ELF linker under Leopard helps much since OS X uses Mach-O binaries but hey, there's always cross-compiling.
+    </p>
+    <p>
+    BTW, Ian Lance Taylor, the author of gold, has <a href="http://www.airs.com/blog/archives/38">an excellent series of blog articles on linkers.</a>
+    </p>

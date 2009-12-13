@@ -1,0 +1,36 @@
+---
+layout: post
+title: "Thoughts on Varnish"
+---
+<p><a href="http://varnish.projects.linpro.no/">Varnish</a> is getting a lot of attention these days around the internet, and with good reason, it&#8217;s a nicely written and speedy cache, and has a nice <span class="caps">DSL</span> for caching. It has great features like hot reloading of cache rules and <span class="caps">ESI</span>.</p>
+
+
+    <p>One thing that&#8217;s really surprised me, though, is that Varnish uses one thread per connection. Most network programs designed for high number of connection don&#8217;t use one thread per connection anymore as it has serious drawbacks.</p>
+
+
+    <p>With slow clients, many of your threads are spending a lot of time doing nothing but blocking in <tt>write()</tt>. In all internet consumer apps, I believe, slow clients make up the majority of your connections. But even though the threads are doing nothing, the OS still has memory and scheduling overhead in dealing with them. You find yourself with an artificially low ceiling on the amount of users you can service with a single machine.</p>
+
+    <p>What makes a client slow, though? Both speed and latency. Cell phones, 56k modems, and users on high speed links but not geographically close to your data center can all be classified as &#8216;slow&#8217;.</p>
+
+
+    <p>One design that is more appropriate for dealing with the slow client problem uses a pool of worker
+    threads or processes behind the scene and
+    <a href="http://www.xmailserver.org/linux-patches/nio-improve.html">epoll</a> /
+    <a href="http://people.freebsd.org/~jlemon/kqueue_slides/index.html">kqueue</a> / <a href="http://developers.sun.com/solaris/articles/event_completion.html">event
+    ports</a> handling slow clients and
+    telling the pool of workers that a socket is ready with a change notification. Your cost is still
+    correlated with growth but at a much lower rate and the number of users you can service will
+    dramatically increase.</p>
+
+    <p>So why does Varnish use this older, more troublesome model? Probably because most services aren&#8217;t
+    going to notice the bottleneck; They simply don&#8217;t have enough concurrent connections to worry about
+    using a few extra machines. If you&#8217;re never saturated a load balancer or firewall, you&#8217;ve probably
+    never had to seriously consider the <a href="http://www.kegel.com/c10k.html">C10k</a> issues involved.</p>
+
+
+    <p>Also, unfortunately, the way most people write load tests is that they are only testing the All Fast
+    Clients scenario and not a mix of fast clients and slow clients. I&#8217;m guilty of this, too.</p>
+
+
+    <p>My executive summary: Varnish is a nice piece of software, and I hope they spend the time to make it
+    useful for larger sites as well as smaller ones.</p>

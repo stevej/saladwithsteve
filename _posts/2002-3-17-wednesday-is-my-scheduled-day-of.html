@@ -1,0 +1,47 @@
+---
+layout: post
+title: ""
+---
+Wednesday is my scheduled day of Salvation. Speakeasy brings in my 1.5M sDSL that day. They were trying to sell me a T1. It's only twice the cost of sDSL and provides lower latency plus i'd be higher up the customer service chain supposedly. I politely declined. 
+    <P>
+    I recently picked up Ronald Mak's "Writing Compilers and Interpreters: An Applied Approach Using C++" along with "Rethinking Public Key Infastructure and Digital Certificates". Don't be afraid of the first title, it's merely C-with-classes and the occasional <code>cout</code> but that's the extent of the non-ANSI C in the text. I'm really only interested in section 2 about building runtimes since that's where my knowledge is the thinnest right now. The PKI book should be interesting since the author is a heavy advocate of people issuing their own certificates. Rock on.
+    <P>
+    Yesterday was the third time in two days that I talked about forward secrecy in SSL.  I think it's an important topic so I'll reiterate: Your data is not very secure with an average SSL connection. In a standard SSL/TLS connection, your data is encrypted with the same key as the next guy's data and will be encrypted with that same key until their key expires and they generate a new key. 
+    <P>
+    Let's say that somebody, the Mob for example, sits on (or near) XYZ's network and keeps a copy of all (or just a lot) of the SSL traffic that floats past.  Next, they break into XYZ's machine and steal a copy of the key. That key is then used to decrypt all the captured traffic. Anybody who sent their credit card to XYZ would be in for a world of hurt. A forwardly secret cipher would re-key every seperate connection so that even if the Mob were to have a copy of all that traffic, each session would be as impossible to crack as the next one. Not only does rekeying happen frequently (every seperate connection to the server is rekeyed) but the new key is flushed after the connection has ended. There's simply no key for the Mob to steal that would decrypt even a single session, let alone all sessions. Pretty spiffy.
+    <P>
+    Forward secrecy isn't for everyone, as always there are trade-offs: Rekeying every connection can be expensive but if you handle sensitive information, then you should bear the brunt of this expense. 
+    <P>
+    In case you're wondering, a FS ciphersuite isn't the default in the SSL webserver I run since nothing particularly sensitive passes through. I do allow for a FS cipher so you can use one if you so choose but I've yet to see a web browser allow you, the incompetent and ignorant user, to choose your own ciphersuite. Also, I do send my credit card digits via non-FS'd connections but I have good credit card fraud protection and keep an eye on my accounts every month. That may not be enough but I somehow find a way to sleep every night despite the scary internet boogie men.
+    <P>
+    <a href="http://www.decafbad.com/">I.m.orchard</a> (via <a href="http://evhead.com/">Ev</a>) asks: Why not use HTTP Authentication for the weblog API? 
+    <P>
+    The reason not to use HTTP Authentication in the weblog API is mainly identity management. Unless you tie the API implementation into the webserver, you have no way of knowing which user is accessing the restricted resource, you'll only know that somebody on the list of allowed people is viewing, no HTTP header exists to tell you who is authenticated. So if the API is only going to be accessed by a single person, then there's no reason to not use HTTP Authentication. 
+    <P>
+    I think HTTP Authentication is decent to model the metaWeblog API authentication from, as long as you allow for a negotition of the ciphersuite involved when using Digest mode just as you can negoitate your ciphersuite in SSL/TLS. Just using SSL might be a good enough answer. 
+    <P>
+    Ok, that's enough technobabble for now.
+    <P>
+    On a more political note: Is it just me or is the new Left actually not a whole lot different than the new Right besides a few leanings towards humanism? I know I'm not the only person to note this. Bukowski once said: "Those who scream for peace - they'll be the ones who murder you in the end." and it seems to me that the '60's Left are split into two groups: the new Big Brother or the  ones that live in the hills of Marin County growing weed as a cash crop. I suppose it was more evident during the last two Presidental terms but beyond the uppity-ups, the new Left has remained at the reins. I've noted this through various people I know who work in local, state, and national government, from the welfare, to corrections (prisons), to watchdog arms (EPA, GAO), the conservative hardliners retired and moved aside for the political ideologists of the 60's, the deadheads, and all those reformists who preached so strongly that they had a long road ahead. 
+    <P>
+    How did it turn from free-wheeling happy-fun-time to Clipper chips, state-sponsered classism, corporate welfare, and national ID badges (GWB isn't the first to spout off about national id's)?
+    Power corrupts? Old age promotes cynicism? Reality TV? I don't really know but I'd like to find out. 
+    <P>
+    Should we look back to the '20's Left? They actually accomplished things that have changed our society for the better: women's sufferage, better treatment of the working class. Neither was a small amount of work.
+    <P>
+    Maybe someday the "right wing" working class families of America will wake up and realize that they have more in common with the old left than the new right. According to Proudhan, it's doubtful but I have more faith than that. Somebody could repackage Emma Goldman for our decade, give her a "Taking Back Conversativism" slant, and feed it to the masses. It's so insane, it just might work.
+    <P>
+    On a musical note, Propaghandi's songs read more like Letters to the Editor than traditional music. Case in point (and this song was published months before 9/11):
+    <blockquote>
+    Four more years of war is peace, ignorance is strength and slavery is freedom. Four more; may all your interventions be "humanitarian". Four more years of legalized bribery and served corporate interests. Four more years of pay-to-play politics, power and influence. So vote for tweedle-dum or tweedle-dee and a framework of debate narrowed for you courtesy of the ultra-rich and a media that filters out any voice that challenges their power. Like Nader bounced in Boston by State-Troopers because he don't speak for oil-tycoons and bankers, whose pursuit of happiness and liberty demands a rhetoric of fear to be the litmus-test for viable heirs to the phony drug-wars, the trumped-up rogue-states, the permanence of a war-economy.
+    <P>
+    I feel less hopeful and less human as I'm reduced to nothing more than cheering on embassy bombings as the liars pave their way through four more years... 
+    </blockquote>
+    <P>
+    I find their latest album title, "Today's Empire, Tomorrow's Ashes", oddly inspiring. It reminds me that like every Empire before, ours will end eventually and maybe we can have a hand in what comes next. We haven't seen much that has worked: Plato's warrior-king ideal failed us, Marxism mutated into a self-hating State obsessed with killing it's own citizens, our beloved Democratic-Republic at least places value on it's own people; slaves are worth more alive than dead but it takes the opposite view of non-citizens. Orthogonally, large societies have always excelled at transferring Quality-of-Life from it's lowest citizen to it's highest. Something tells me that wasn't the original point of Society but it's become it's major side-effect. I somehow doubt that when Grog asked Ughh and Mubb if they'd want to work together in growing some crops that he figured Mubb thought "Damn, I could make a killing on these two suckers!"
+    <P>
+    I recognize that my quick anecdotes are somewhat unfair. I wouldn't be alive today if it weren't for the medical technology that perhaps only a large society could fund research for. See my point above about slaves.
+    <P>
+    So I can't help but ask: What is Next?
+    <P>
+    Ok, enough vague ponderings, I have serious work to take care of.

@@ -1,0 +1,16 @@
+---
+layout: post
+title: ""
+---
+Tuesday I released pre-documentation for Blogger API 2.0 and in that documentation I mentioned a 'token' element to the Login struct which would have some amorphous "security" property. I then later dismissed the token element on the bloggerDev list as something I wouldn't be able to finish because I didn't define a threat model, wasn't happy with the work I had completed on the subject, and felt that it would need retooling of the return types to make it effective. I've changed my mind on that last point (no retooling of return types is necessary), which made me think of a threat model and then flesh out how protection against that threat might possibly work. Here we go:
+    <br /><br />
+    <strong>Threat Model</strong>: Protect against somebody sniffing a user's password over unprotected XML-RPC traffic.
+    <br /><br />
+    There'd be a module called blogger2.secure with a method named handshake(). It doesn't actually return a value, it initiates two DH key exchanges, so you now have two shared secrets. The first secret is used to hash the password and that new value is sent across the wire as the 'token' field in the Login struct. The second secret is then used to hash the first secret and the original first hash is now stored in the second field. Everytime you send a token, this happens again. This makes the authentication perfectly forward secret. I'm pretty tired so I might have missed something there.
+    <br /><br />
+    There is one problem I forsee; what if by network failure or some other problem the two secrets become out of sync and the server no longer 
+    accepts "legitimate" (to the client) tokens from the client? You could just re-handshake() although you would want to know that the password was legitimate and this wasn't the reason for the token rejection. This brings up another point; when you send the initial handshake request; how does the server know who to associate these shared secrets with and how does it authenticate who that person is originally? Did I just make a house of cards? 
+    <br /><br />
+    I'm posting this here rather than the bloggerDev list because I'd like some opinions from people who aren't necessarily on the bloggerDev list. The question of original authentication is key and I'm sure it's been solved before. PFS isn't new, I bet I'm just missing something.
+    <br /><br />
+    <strong>Update:</strong> I now see how it's possible to do initial authentication using another DH exchange and then sending across username/password with that first shared secret. -smj (2:30am). 

@@ -1,0 +1,25 @@
+---
+layout: post
+title: "Aaron Swartz on losing his webserver's disk drive"
+---
+<p>
+    <a href="http://www.aaronsw.com/weblog/">I know this pain.</a> I lost a CVS repository at Pyra back in 2002 this way. We were too cheap back then to use RAID on anything that wasn't BlogSpot or do backups on anything that wasn't our SQL Database. It's a good thing only two or three of us were actually working in it because if it had been 10 then life would have really sucked. (Actually, if it had been 10 people,  I would have taken care of it). As it stood, we simply bought a new drive, copied the latest version from my Powerbook, merged the others, and were back in business. 
+    </p>
+    <p>
+    Aww crap, we lost that drive a month later. I said "F*** this, we're going to Google in two months, no more source control until then." Since I was working on the backend and Ev/Sutter worked on the frontend, it didn't really matter.
+    </p>
+    <p>
+    The industry is great at throwing around sloppy numbers, like a modern SATA drive having a million hours of uptime between failure (MTBF). Wow, that sounds so impressive. A freaking million!
+    </p>
+    <p>
+    Actually, those numbers are calculated assuming the drive runs from 9-5. So, the number is more like 140,000 hours MTBF. Well, some sloppy math of my own tells me that if a datacenter has 50,000 disk drives in it, one will fail every 3 hours.
+    </p>
+    <p>
+    Sucks.
+    </p>
+    <p>
+    I do, though, backup my Subversion repository at home now. And my web data is on dreamhost, which has it's own backup schedule.
+    </p>
+    <p>
+    I think this is another good lesson for people wanting to work at a short-handed, underfunded startup <small>(or, as they might start calling this in the future, a <a href="http://www.paulgraham.com/start.html">Paul Graham (or Grahamian)-style Startup</a>)</small>. You're always making these kinds of tradeoffs: I made a decision that the time it would take me to build a RAID 10 system plus put together a solid and well tested backup strategy for a system that 3 people used would be better spent on the service that a helluva lot more people used (read: Blogger). I made the right choice but I still feel stupid about the second outage. The parameters of the choice change a lot when you have a ton of infastructure in place to help out (read: Google and their wonderful ops people).
+    </p>

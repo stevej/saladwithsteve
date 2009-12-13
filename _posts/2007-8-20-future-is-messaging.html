@@ -1,0 +1,55 @@
+---
+layout: post
+title: "The future is messaging"
+---
+<p> <a href="http://intertwingly.net/blog/2007/08/12/Long-Bets">Sam
+    Ruby</a> and <a href="http://www.tbray.org/ongoing/When/200x/2007/08/13/Prognostication">Tim
+    Bray</a> have each picked messaging systems as a trend to watch in the
+    future.  In particular, they are naming Jabber/XMPP as something to
+    watch. While I think XMPP is a great way to connect people to systems
+    or other people, I think there are better ways to connect systems to
+    systems.  </p>
+
+    <p>
+    Enter <a href="http://www.amqp.org/">AMQP</a>, a protocol designed by the financial industry to replace their existing proprietary message queues with something built on open standards. The working group is made up of seasoned messaging profesionals who are used to having billions of dollars worth of transactions moving through their systems without mysterious delays or drops.
+    </p>
+
+    <p>
+    There are two things that stand out in my mind about AMQP.
+    <ol>
+    <li>Payload Fidelity: Any stream of bytes you place in the payload will come out the other end the same way. At the end of this post, I show an example of this. If you can do this with Jabber, please say so. I certainly haven't seen a way to do it.</li> 
+
+    <li>Queues instead of Buddy Lists: Instead of having human-centric buddy lists like with Jabber, you have accounts who have access to a namespace called a 'virtual host'. Inside of the 'virtual host' are named 'queue's and 'exchange's. Shove messages in one end and read them from the other.</li> </ol>
+    </p>
+
+    <p> <a href="http://www.rabbitmq.com/">RabbitMQ</a> is an AMQP implementation built in Erlang and using <a href="http://saladwithsteve.com/2005/02/mnesia_16.html">Mnesia</a>.
+    Building clustered, high performance messaging systems in Erlang really
+    plays to that language's strengths, I feel. Erlang seems great at
+    shoveling bits from one network interface, <a href="http://www.postneo.com/2007/08/10/erlang-bit-syntax-and-network-programming">doing
+    some pattern matching on them</a>, changing some bits, and blasting
+    them out another interface.  </p> 
+
+    <p>In my experience, you can have a
+    clustered rabbitmq setup running at home in under 20 minutes. It's all
+    in the <a href="http://www.rabbitmq.com/admin-guide.html#clustering-transcript">admin
+    guide.</a> </p>
+
+    <p>
+    Plus that question about transporting binary data over your messaging
+    layer? Here's a hack I wrote serializing Scala objects into
+    RabbitMQ and operating on them on the other side. It will work with
+    your default RabbitMQ installation:
+    </p>
+
+    <p>
+    <a href="http://sieve.net/websvn/filedetails.php?repname=Steve%27s+Happy+Time+Petri+Dish&path=%2Fhacks%2FServer.scala">Server</a>
+    <br/><a href="http://sieve.net/websvn/filedetails.php?repname=Steve%27s+Happy+Time+Petri+Dish&path=%2Fhacks%2FClient.scala">Client</a>
+    <br /><a href="http://sieve.net/websvn/filedetails.php?repname=Steve%27s+Happy+Time+Petri+Dish&path=%2Fhacks%2FMain.scala">Multiplication class definition</a></p>
+
+    <p>
+    Anecdotally, I've heard that RabbitMQ can saturate a 100Mbps ethernet
+    connection with a single 3Ghz Pentium 4. I have a couple of quad core
+    opteron's (2x2 core) with 16G of RAM and multiple gigabit ethernet interfaces in
+    my basement; Seeing how much processing power is needed to saturate
+    a gigabit ethernet interface is definitely on my ToDo list!
+    </p>

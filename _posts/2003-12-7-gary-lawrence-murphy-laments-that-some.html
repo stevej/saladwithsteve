@@ -1,0 +1,32 @@
+---
+layout: post
+title: ""
+---
+Gary Lawrence Murphy laments that some poor RSS readers aren't respecting certain parts of HTTP: namely 304 and/or E-Tags. One of his proposed potential solution? <a href="http://www.teledyn.com/mt/archives/001496.html">Invent a new protocol.</a>
+    <br /><br />
+    I see a few problems: 
+    <br /><br />
+    1) RSS isn't designed to solve bandwidth concerns: HTTP Cacheing is (kinda). <br />
+    2) If these bad clients can't be bothered to learn their existing protocol, why would they use a new one? They obviously don't get why bandwidth savings are important. The need for a bandwidth-savings network is going to be lost on them.
+    <br /><br />
+    A recent discussion on atom-syntax tried to fit solutions to this problem into Atom. Not surprisingly, I thought that was fairly wrong as well. Gary isn't arguing for that here, he recognizes that poor protocol usage shouldn't be addressed in a file format.
+    <br /><br />
+    This is an issue of developer training and relations, I think. Maybe <a href="http://accordionguy.blogware.com/">Joey</a> has some ideas as to how to get the message out there. 
+    <br /><br />
+    There's a bigger problem, though; The existing HTTP Caching approach is pretty darn bad at solving this problem; I implemented 304 support into one particularly popular hosting provider *ahem* and noticed that the drop in bandwidth usage was ridiculously lower than I thought it should be. (Yes, I used a liberal interpretation of "later than this" for 304 matching) 
+    <br /><br />
+    Why didn't 304 alleviate my bandwidth concerns as well as I expected it to? Currently HTTP Caching paints with a pretty broad brush. The client says: "give me the entire document but only if it's been modified since date X". I think these are the wrong semantics. You don't really care if you are sent the most current document, you only care if you _have_ the most current document.
+    <br /><br />
+    I came up with an idea on the train recently that might be useful here: If you're given the right bytes and told where they should go, you can construct the right document. HTTP does have semantics for giving you bytes and where they should go. Let's reuse that. Here's a workflow for my proposed solution:
+    <br /><br />
+    <ol>
+    <li>You request a document from a webserver for the first time.</li>
+    <li>Later, you request it again to see what's changed.</li>
+    <li>Instead of just adding an If-Modified-Since header, you also send an X-header containing the Hash Tree of the document</li>
+    <li>The server replies with either a 200 and the whole content of the file,  a 206 and the Byte Ranges that you need to replace in your own document to build the new document from your current copy, or if it doesn't understand your X-header, you can get back a traditional 304.</li>
+    </ol>
+    This is backwards compatible with current web clients but I have no numbers of typical documents and possible savings. I also really haven't done my homework to see what other possible solutions could exist.
+    <br /><br />
+    Kevin Burton told me about <a href="http://rproxy.samba.org/">rsync-over-http</a> recently. That seems like it could be a real solution but I don't yet know enough about rsync design.
+    <br /><br />
+    Talking about any additions to HTTP, given that Internet Explorer is effectively frozen until Longhorn, seems silly. Except that newsreaders certainly aren't frozen, we've only begun to see newsreader take off. Improvements in HTTP can be experimented with there. This is one area that desperately needs work.

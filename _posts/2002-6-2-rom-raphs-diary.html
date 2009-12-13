@@ -1,0 +1,9 @@
+---
+layout: post
+title: "rom raph's diary:"
+---
+From raph's <a href="http://advogato.org/person/raph">diary</a>:
+    <blockquote>
+    Most applications that need fonts have a "fontmap" file of some kind. This file is essentially an associative array from font name to pathname in the local file system where the font can be found. Actually, you want a lot more information than just that, including encoding, glyph coverage, and enough metadata at least to group the fonts into families. In some cases, you'll want language tags, in particular for CJK. Unicode has a unified CJK area, so a Japanese, a Simplified Chinese and a Traditional Chinese font can all cover the same code point, but actually represent different glyphs. If you're browsing a Web page that has correct language tagging, ideally you want the right font to show up. Unfortunately, people don't generally do language tagging. In fact, this is one area where you get more useful information out of non-Unicode charsets than from the Unicode way (a big part of the reason why CJK people hate Unicode, I think). If the document (or font) is in Shift-JIS encoding, then it's a very good bet that it's Japanese and not Chinese. 
+    </blockquote>
+    Lately I've been studying i18n (mostly for use with Java although Objective-C's support seems pretty decent at first glance) and have heard rumblings that CJKV people hate Unicode. Here's the first concrete fact I've found. Food for thought.  

@@ -1,0 +1,33 @@
+---
+layout: post
+title: "Import Python modules from a zipfile"
+---
+A good first step to replicating Java's JAR files.
+    
+    File: test_mod.py
+    <pre>
+    class Test:
+    def __init__(self):
+    print 'hi'
+    </pre>
+    
+    Now zip it:
+    
+    <pre>zip test_mod.zip test_mod.py</pre>
+    
+    Now fire up Python (at least 2.3), add the zipfile to your sys.path, and import the module.
+    <pre>
+    $ python2.3
+    Python 2.3 (#1, Sep 13 2003, 00:49:11) 
+    [GCC 3.3 20030304 (Apple Computer, Inc. build 1495)] on darwin
+    Type "help", "copyright", "credits" or "license" for more information.
+    >>> import sys
+    >>> sys.path.insert(0, '/Users/stevej/test_mod.zip')
+    >>> import test_mod
+    >>> test_mod.__file__
+    '/Users/stevej/test_mod.zip/test_mod.py'
+    >>> test_mod.Test()
+    hi
+    <test_mod.Test instance at 0x4046664c>
+    </pre>
+    Not at easy as it could be but it's a solid first step. The ability to address arbitrary content in a zipfile (i.e. not just Python modules) would be a solid second step.

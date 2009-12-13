@@ -1,0 +1,27 @@
+---
+layout: post
+title: "BEEP blabbility BLOP"
+---
+<p>
+    Marshall Rose, <a href="http://www.beepcore.org/mrose_beep.html">"On BEEP"</a>: <blockquote>
+    "Unfortunately, most application protocol design has not enjoyed as excellent a history as TCP. Engineers design protocols the way monkeys try to get to the moon that is, by climbing a tree, looking around, and finding another tree to climb."
+    </blockquote>
+    </p>
+    <p>
+    I am taking a hard look at BEEP again since I have a small need for a network protocol but am too smart (read: lazy) to want to build the handshake and transport myself. Focusing on the marshalling is enough work for me. I have been following BEEP since it was called BXXP (aren't I cool?) and have been itching to use it.
+    </p>
+    <p>
+    <a href="http://www.drunkenblog.com/drunkenblog-archives/000292.html">SubEthaEdit uses BEEP.</a> Read on, proles:
+    <blockquote>
+    "For v2.0, you've moved the low-level networking to the BEEP protocol (blocks extensible exchange protocol). What led you to BEEP, and then to choose it as your networking layer over other protocols?"
+    <blockquote>
+    "We researched a lot of options for a new network protocol. We wanted efficiency, extensibility and something that would fit our requirements without being an ugly hack. We had evaluated a few technologies and chose BEEP because it was the best fit for what we were trying to do.
+    <br /><br />
+    BEEP provides a simple and most importantly standardized framework for everything you will have to handle when you design and implement a network protocol, that deserves the name. It's an IETF standard (RFC 3080) and as we recently found out is also used in Apple's Xgrid software.
+    <br /><br />
+    Having our own Objective-C implementation of BEEP powering our networking layer has great advantages: If we want to add a feature like TLS encryption or authentification in the future, we should be able to do so without breaking compatibility with the current protocol.
+    <br /><br />
+    Secondly BEEP enables us to do more stuff more efficiently than before with e.g. reduced resource load by using multiplexed channels over a single connection or better status channel capabilities. Last but not least we won't have to implement a networking stack for another application when we write one; we can just take our BEEP library and create a profile for the new application."
+    </blockquote>
+    </blockquote>
+    </p>

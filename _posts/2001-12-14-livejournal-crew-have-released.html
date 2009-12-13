@@ -1,0 +1,29 @@
+---
+layout: post
+title: ""
+---
+The livejournal crew have released a <a href="http://www.livejournal.com/misc/clusterlj/">document</a> describing their new proposed architecture. Let's talk about it (Indented text is from the doc, text directly below that is my criticism):
+    <P>
+    Please realize that my criticisms are friendly. I'm not God of Programming, I'm just a dude who has ideas, experiences, and is knowledgable about the literature.
+    <blockquote>
+    Backhander.
+    The backhander will have to look several places in the HTTP request to determine which cluster to throw it to:<br>
+    REQUEST_URI =~ m!^/(users|community|~)/(\w+)!<br>
+    REQUEST_URI =~ m![\?\&]user=(\w+)!<br>
+    Post data: user<br>
+    </blockquote>
+    Every single HTTP request goes through a regex? I think it would make more sense that every URI is implicitly mappable to it's context. Even a simple string comparison with a bunch of nasty if/elseif blocks would be better than having to parse every single request. No matter how fast you think regex is, "string" equals "string" is faster. And no matter how fast you think "string" equals "string" is, not doing any comparision at all is blindingly faster. "string" means send them to /path/to/string (don't forget the rest of the request data) and "junkXYZ090 means send them to /path/to/junkXYZ090 and if /path/to/junkXYZ090 doesn't exist, 404 'em.
+    <blockquote>
+    "The ultimate ideal would be to have LiveJournal to scale linearly with the number of servers we buy." 
+    </blockquote>
+    Linear time complexity is never the ideal. I'm not nitpicking! It's an important distinction. If linear time complexity plays into your scalibility plans, it must only be as a bottom line. Please remember that the order of magnitude doesn't indicate the absolute amount of time spent on a specific dataset size but rather how expensive the algorithm is as your dataset grows. What they seem to be saying is that they wants each webserver to be able to handle less requests as they add more webservers.
+    
+    <blockquote>
+    "Currently, there is one master database, 5 slave databases, and a ton of web servers."
+    </blockquote>
+    
+    This is my largest criticism of LiveJournal. They don't have more users than Blogger and yet they require a whole lot more resouces. I feel that their dynamic generation of ever user page is to blame for this. Handling user pages as static content generated upon delta rather than upon request would lessen the requirements on the database tremendously. Of course,since livejournal hosts every page this quickly becomes a matter of using a massive NFS mount or caching whole pages in the database instea of just caching some data required to generate a whole page. 
+    <P>
+    I'll have more criticisms as I read their proposal more.
+    <P>
+    Rebuttals welcome.  Thanks for listening. 

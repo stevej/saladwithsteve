@@ -1,0 +1,36 @@
+---
+layout: post
+title: ""
+---
+My multi-hour commute has given me lots of time to read on Caltrain and Muni. This undisturbed study time has allowed me to rediscover the wonders of Standard ML. Man, what a great little language. Now I just need to get a laptop that I can use to run <a href="http://cm.bell-labs.com/cm/cs/what/smlnj/">sml-nj</a>. I'm thinking a member of the Vaio SRX family or some other tiny machine.
+    <br /><br />
+    More than most, what impresses me about ML is that it isn't a Pie in the Sky language but rather a Down and Dirty language designed to be heavily used. Using <a href="http://www.engr.uconn.edu/~jeffm/Classes/CSE240-Spring-2000/ML-Basics/ml-basics-5.html">Patterns</a> in your function definitions as a shortcut feels much natural than I thought it would at first. In fact, it was the first thing I remarked about the language. Last year I noted to my good friend <a href="http://pobox.com/~dnm/">dnm</a> that function definition in ML looked a lot like a theorem proof. Dan informed that it's because ML was first designed to prove theorems. 
+    <br /><br />
+    Although, I'm still a little confused as to how to tell the difference between a tuple and a simple parenthesed type. Let me explain: In ML, as in a lot (most?) of functional languages, the type of a tuple changes with it's number of elements. <small>(This might be pretty tough to grasp if you've only had experience with procedural and/or object-oriented languages)</small> Here I'm going to take a tuple and request the first element from it (that's what #1 does when applied to a tuple):
+    <pre>
+    <small>
+    #1(1,2,3);
+    <em>val it = 1 : int</em>
+    
+    #1(1,2);
+    <em>val it = 1 : int</em></small></pre>
+    Simple so far. Now to get that first element.
+    <pre>
+    <small>
+    #1(1);
+    <em>stdIn:29.1-29.6 Error: operator and operand don't agree [literal]
+    operator domain: {1:'Y; 'Z}
+    operand:         int
+    in expression:
+    (fn {1=1,...} => 1) 1
+    </em></small>
+    </pre>
+    D'oh! So how am I supposed to get the first element of this faux tuple? I actually agonized over this for about 2 whole minutes on the train last week.<small>(I'm waking up really early now, cut me some slack. Not to mention the fact that I don't have an ML interpreter with me on the train, I only have a faulty simulation of a ML interpreter; my brain).</small> Aha! Just evaluate it!
+    <pre>
+    <small>
+    (1);
+    <em>val it = 1 : int</em>
+    </small>
+    </pre>
+    
+    ta da.  Next time: Strong Type Systems have met their match; type inference in ML is as smooth as a sex-ay lad-ay.

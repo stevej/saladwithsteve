@@ -1,0 +1,46 @@
+---
+layout: post
+title: "Fasttrack to UFFI"
+---
+I performed a small experiment, trying to track down a bug in a Common Lisp package that I'm porting to OpenMCL. I realized that some of my steps for tracking this down would probably make for a super simple tutorial on using UFFI
+    <br /><br />
+    First, make a quick C library
+    <br /><br />
+    lib.c:
+    <br /><br />
+    <code>
+    #include &lt;stdio.h&gt;
+    <br /><br />
+    int teststuff(int i) {<br />
+    return i;<br />
+    }</code>
+    <br /><br />
+    Now compile it:
+    <br /><br />
+    <code>
+    $ gcc -g -c -dynamiclib -o lib.o lib.c
+    </code>
+    <br /><br />
+    Now build a dynamic library:
+    <br /><br />
+    <code>
+    $ libtool -dynamic -o lib.so lib.o -lc
+    </code>
+    <br /><br />
+    Use <a href="http://www.cliki.net/asdf">ASDF</a> to install <a href="http://uffi.b9.com/">UFFI</a>
+    <br /><br />
+    Now create a simple Lisp program that calls your function
+    <br /><br />
+    test-uffi.lisp:<br />
+    <br /><br />
+    <code>
+    (asdf:operate 'asdf:load-op :uffi)<br />
+    (uffi:load-foreign-library #p"/Users/stevej/lib.so" :supporting-libraries '("c"))
+    <br /><br />
+    (uffi:def-function "teststuff" ((hello :int)) :returning :int)
+    <br /><br />
+    (teststuff 1)
+    </code>
+    <br /><br />
+    Voila, your first UFFI program.
+    

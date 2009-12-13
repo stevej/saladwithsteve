@@ -1,0 +1,24 @@
+---
+layout: post
+title: ""
+---
+Sunday I wrote my first virtual machine. It only runs a single program (not even written to disk yet, but stored as an array of bytes): <P>
+    <code>
+    b0 0b 00 00 01 FA 
+    </code>
+    <P>
+    <tt>b0 0b 00</tt> is how I determine that I'm running a program written such that my VM can understand it. (it's magic number)
+    <P>
+    The following <tt>00</tt> is an instruction who's mnemonic is <tt>NOP</tt>, for No Operation. It does nothing. <tt>01</tt> is an instruction who's mnemonic is <tt>INC</tt> (at least in this instruction set but I'll get to that later), and <tt>FA</tt> is the data that <tt>01</tt> works on.  So the VM reads in <tt>01</tt>, increments the <tt>IP</tt> (the instruction pointer, which is how the VM knows where to start looking to reading. i.e. a placeholder). <tt>01</tt> takes the next byte and places it on the stack, increments the IP, then increments
+    the contents on the top of the stack (<tt>FA</tt> becomes <tt>FB</tt>). 
+    <P>
+    And that's it.
+    <P>
+    Now the kicker is that I abstracted out the vm instruction set. So now you can write any instruction set you want. This means that you can interpret any set of bytes in the any program anyway you want and as long as you follow my implicit protocol you'll be fine (fine meaning that the vm won't crash). Instead of <tt>01</tt> meaning <tt>INC</tt>, you could instead have it map to your own <tt>DEC</tt> function which would then decrement the following byte, so instead of being left with <tt>FA</tt> you'd be left with <tt>F9</tt>. 
+    <P>
+    Consider it as micro-p-coding. ;-) (psst. if you get this joke please feel free to email me and criticize or offer insight. I'd appreciate it.)
+    <P>
+    Tomorrow I'll finish up the last of my checklist and put the code online in a web-accessible CVS tree.
+    <P>
+    Geez, I don't know how other people figure out how to do this, there are no reference texts on the subject and even the fourth section of the Blue Book is a tad sketchy on some things. I just made it all up as I went along.
+    

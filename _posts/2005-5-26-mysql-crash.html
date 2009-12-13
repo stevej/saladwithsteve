@@ -1,0 +1,13 @@
+---
+layout: post
+title: "MySQL crash."
+---
+I was messing around with MySQL (4.1.12 Debug on OS X), playing with Python's MySQLdb and also Ruby on Rails when MySQL caught a signal 10 and took a fantastically nasty nose dive.
+    <br /><br />
+    Poking around various tools, I was unable to initiate any kind of recovery as the database couldn't even get to any of it's checkpoints. The recovery tools literally mocked me with messages of <tt>"You forgot to give the arguments! Please see bin/mysqlcheck --help"</tt> as I tried to divine the right set of switches. Thanks guys.
+    <br /><br />
+    Digging through some mailing lists, this sentence caught my attention:
+    <br /><br />
+    <blockquote>
+    There is little hope of recovering your tables. You should resort to a backup and upgrade to 4.0.13.
+    </blockquote>This doesn't make me eager to stick gigabytes of data into it. I think I'll switch back to Postgres for now. There's been a Postgres database running non-stop in my closet for the past 3 years.

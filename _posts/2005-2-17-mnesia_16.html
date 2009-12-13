@@ -1,0 +1,52 @@
+---
+layout: post
+title: "Mnesia"
+---
+<p>
+    This weekend I read a <a href="http://www.erlang.se/publications/mnesia_overview.pdf">short
+    paper</a> on <a href="http://www.erlang.org/~hakan/mnesia.html">Mnesia</a>; a relational
+    database designed for telecom applications with soft realtime
+    requirements. It features election-free replication (!!)  and is
+    linked into the application's address space for efficiency.
+    </p>
+    <p>
+    Mnesia is written entirely in Erlang and is only 20,000 lines of
+    code. It's query and operational language are also Erlang meaning that
+    there's no potentially absurd impedance mismatch like you see with
+    various ORM tools such as Torque or Ruby on Rails. You won't be
+    mysteriously executing 500 queries to route a single phone call.
+    </p>
+    <p>
+    You can reconfigure it dynamically. Since it's meant for a highly
+    available telecom environment, the idea is that you never turn it
+    off. Erlang's Actors model helps it acheive fault tolerance.
+    </p>
+    <p>
+    Queries are built using list comprehensions and a more powerful form
+    of Views are built out of logic variables.
+    </p>
+    <p>
+    You are able to bypass the transaction manager and access any data
+    using only a lightweight dirty lock interface to make sure your reads
+    aren't garbled. The authors recognize that sometimes it just doesn't
+    matter if a little of your data is wrong and that you should be able
+    to control when that might happen.
+    </p>
+    <p>
+    In practice, data in Mnesia is not usually normalized as many of the
+    current applications that use it want to be able to get as much data
+    as needed in a single query. Even with it's query optimizer and
+    ability to sidestep the lock manager, many telecom apps still need to
+    be able to get all of their data in a single query. How long do you
+    usually wait for a telephone call to start ringing? 100 milliseconds?
+    That's as long as some RDBMS take to optimize a single query let alone 
+    execute it and return the results.
+    </p>
+    <p>
+    Apparently quite a few applications within Ericsson and Nortel use
+    Mnesia. It's open source along with the rest of Erlang.
+    </p>
+    <p>
+    If I have time to play with it, I'll post some example code. I'd like
+    to see how well this election-free replication works.
+    </p>

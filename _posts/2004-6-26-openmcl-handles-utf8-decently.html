@@ -1,0 +1,23 @@
+---
+layout: post
+title: "openmcl handles utf8 decently"
+---
+I tested openmcl recently to see if it can store and print UTF-8 without harming it. Worked like a charm. You can most likely attribute this to <a href="http://www.lispworks.com/reference/HyperSpec/Body/13_ac.htm">CLHS 13.1.3</a> that says a character is a non-negative integer. In Lisp, an integer has no upper bound.
+    <br /><br />
+    testing-utf8.lisp:
+    <code>
+    (defvar *utf8* "𐌸𐌹𐌶𐌰𐌹: 𐍅𐌿𐌻𐍆𐌹𐌻𐌰")<br />
+    (format t "~A" *utf8*)<br />
+    </code>
+    <br />
+    <code>
+    $ openmcl -l testing-utf8.lisp<br />
+    ; loading system definition from<br />
+    ; /Users/stevej/.openmcl/asdf-install/asdf-install.asd into #&lt;Package "ASDF0"&gt;<br />
+    ; registering #&lt;SYSTEM ASDF-INSTALL #x63BD006&gt; as ASDF-INSTALL<br />
+    𐌸𐌹𐌶𐌰𐌹: 𐍅𐌿𐌻𐍆𐌹𐌻𐌰<br />
+    Welcome to OpenMCL Version (Beta: Darwin) 0.14.2-p1!<br />
+    ?<br />
+    </code>
+    
+    Awesome!

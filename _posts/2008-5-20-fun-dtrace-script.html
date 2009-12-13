@@ -1,0 +1,77 @@
+---
+layout: post
+title: "Fun DTrace script"
+---
+<pre>
+    <code>
+    #!/usr/sbin/dtrace -s
+
+    syscall:::entry
+    /pid == $1/
+    {
+    @sys[probefunc, ustack()] = count();
+    }
+
+    END {
+    trunc(@sys, 2);
+    }
+    </code>
+    </pre>
+
+    Tells you the 2 most often called system call/stack trace pair. Running it against firefox 3 beta while using Google Reader shows:
+
+    <pre>
+    <code>
+    $ sudo ./syscalldist.d 240
+    dtrace: script './syscalldist.d' matched 428 probes
+    ^C
+    CPU     ID                    FUNCTION:NAME
+    1      2                             :END 
+
+    munmap                                            
+    libSystem.B.dylib`munmap$UNIX2003+0xa
+    libSystem.B.dylib`free+0x6a
+    CoreGraphics`CGEventCreateFromDataAndSource+0xbce
+    CoreGraphics`CGSDecodeEventRecord+0x6a
+    CoreGraphics`CGSDispatchDatagramsFromStream+0x28f
+    CoreGraphics`snarfEvents+0x12a
+    CoreGraphics`CGSGetNextEventRecordInternal+0x9f
+    CoreGraphics`CGEventCreateNextEvent+0x2c
+    HIToolbox`PullEventsFromWindowServerOnConnection(unsigned int, unsigned char)+0x58
+    CoreFoundation`__CFMachPortPerform+0x75
+    CoreFoundation`CFRunLoopRunSpecific+0xf51
+    CoreFoundation`CFRunLoopRunInMode+0x58
+    HIToolbox`RunCurrentEventLoopInMode+0x11b
+    HIToolbox`ReceiveNextEventCommon+0x176
+    HIToolbox`BlockUntilNextEventMatchingListInMode+0x6a
+    AppKit`_DPSNextEvent+0x291
+    AppKit`-[NSApplication nextEventMatchingMask:untilDate:inMode:dequeue:]+0x80
+    AppKit`-[NSApplication run]+0x31b
+    XUL`JSD_GetValueForObject+0xad6ce
+    XUL`XRE_GetFileFromPath+0x61c563
+    961
+    mmap                                              
+    libSystem.B.dylib`mmap+0xa
+    libSystem.B.dylib`large_and_huge_malloc+0xcb
+    libSystem.B.dylib`szone_malloc+0x1cf
+    libSystem.B.dylib`malloc_zone_malloc+0x51
+    libSystem.B.dylib`malloc+0x37
+    CoreGraphics`CGEventCreateFromDataAndSource+0x15e
+    CoreGraphics`CGSDecodeEventRecord+0x6a
+    CoreGraphics`CGSDispatchDatagramsFromStream+0x28f
+    CoreGraphics`snarfEvents+0x12a
+    CoreGraphics`CGSGetNextEventRecordInternal+0x9f
+    CoreGraphics`CGEventCreateNextEvent+0x2c
+    HIToolbox`PullEventsFromWindowServerOnConnection(unsigned int, unsigned char)+0x58
+    CoreFoundation`__CFMachPortPerform+0x75
+    CoreFoundation`CFRunLoopRunSpecific+0xf51
+    CoreFoundation`CFRunLoopRunInMode+0x58
+    HIToolbox`RunCurrentEventLoopInMode+0x11b
+    HIToolbox`ReceiveNextEventCommon+0x176
+    HIToolbox`BlockUntilNextEventMatchingListInMode+0x6a
+    AppKit`_DPSNextEvent+0x291
+    AppKit`-[NSApplication nextEventMatchingMask:untilDate:inMode:dequeue:]+0x80
+    997
+    </pre>
+    </code>
+    Thrilling, I know!

@@ -1,0 +1,20 @@
+---
+layout: post
+title: "I read the recent paper on XBox security"
+---
+I read the recent paper on XBox <a href="http://web.mit.edu/bunnie/www/proj/anatak/AIM-2002-008.pdf">security</a> <small>(PDF)</small>, linked to from <a href="http://wmf.editthispage.com/">wes' site</a>. It's a fairly simple (besides building the custom hardware to do so and determining where to attack) sidechannel attack. Somebody on the XBox team didn't do their <a href="http://www.oreilly.com/catalog/crackdes/">homework</a> on the DES hardware sidechannel attacks.
+    <P></P>
+    People can whine all they want about how quantum computing will change the face of cryptography and it's role in secure system design but this paper hits it right on the money:
+    <P></P>
+    <blockquote>
+    [...] the security of a cryptosystem is only as strong as they secrecy of the key. Thus, some of the most startlingly effective attacks on a cryptosystem involve no ciphertext analysis, but instead find flaws in the protocols that manage the keys.
+    </blockquote>
+    <P></P>
+    This is pretty old hat to most of the people who read this blog but obviously not to some of the kids who build these systems.
+    <P></P>
+    That's not the least of it, Section 6 outlines a much simpler way of tricking the xbox before it even gets a chance to jump into the bootloader. fun stuff!
+    <br/><br/>
+    <P></P>
+    I have a bar I try to make it under when I work on a network-based security protocols, and that bar is: "How could Dug Song put a hack for this into <a href="http://monkey.org/~dugsong/dsniff/">dsniff</a>?". Dsniff allowing the entire world access to the ssh MITM vulnerabilities was probably better than several dozen security papers on MITM problems. 
+    <P></P>
+    I was thinking about the size of the XBox TCB when I remembered that it's not en vogue to call it TCB anymore, the assurance community now calls it TSF for Trusted Security Functions. I don't know if this a relabelling or if there are discernable differences between the terms. If you know, please inform <a href="http://stevej@pobox.com">me</a>. thanks!

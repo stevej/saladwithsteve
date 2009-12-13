@@ -1,0 +1,17 @@
+---
+layout: post
+title: "Tomato Wifi!"
+---
+<p>
+    While doing that podcast with Daniel, I noticed I was seeing 30% or so packet loss on my wifi network. After rebooting some equipment and keeping an eye on things, I decided to scrap my faulty Airport Express base stations and replace them with <a href="http://www.linksys.com/servlet/Satellite?c=L_Product_C2&childpagename=US%2FLayout&cid=1133202177241&pagename=Linksys%2FCommon%2FVisitorWrapper">Linksys WRT54GL</a>s running a custom opensource firmware called <a href="http://www.polarcloud.com/tomato">Tomato</a>. 
+    </p>
+    <p>
+    While the instructions are good, they assume you already have the router up and running. The first thing I realized was to throw the windows install cd away and just plug my mac into the switch on the back. The router will be listening on <a href="http://192.168.1.1">192.168.1.1:80</a> with a username and password of admin/admin. <a href="http://en.wikibooks.org/wiki/Tomato_Firmware">The instructions</a> will carry you from that point.
+    </p>
+    <p>
+    I have a 3 story house so I bought two routers and bridged them together with <a href="http://en.wikipedia.org/wiki/Wireless_Distribution_System">WDS</a>. My only complaint is that Tomato's WDS <a href="http://www.polarcloud.com/tomatofaq#how_do_i_use_wds">is difficult to setup.</a> The Airport Express admin utility did a wonderful job of easily bridging the two aiport express base stations together.
+    </p>
+    <p>
+    Except for one of the routers dying after only a few days, which Amazon was nice enough to replace for free with next-day shipping, things have been great on Tomato. 4 bars everywhere I go in the house.
+    </p>
+    <small>[Hat tip to <a href="http://www.somebits.com/weblog/tech/good/tomato-firmware.html">Nelson for the recommendation.</a>]</small>

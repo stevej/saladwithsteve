@@ -1,0 +1,13 @@
+---
+layout: post
+title: "So I don't forget it."
+---
+A cheesy generic tcp proxy I found cruising the webs built out of <code>netcat</code>, <code>fifo</code>s, and <code>tee</code>:
+
+    <p>
+    <code>
+    $ mkfifo backpipe<br />
+    $ sudo nc -l 80 0&lt;backpipe | tee -a inflow | nc localhost 8080| tee -a outflow 1&gt;backpipe
+    </code>
+    </p>
+    This way you can also look at <code>inflow</code> and <code>outflow</code> to see what the actual contents were of the transaction.

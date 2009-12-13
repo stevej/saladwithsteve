@@ -1,0 +1,8 @@
+---
+layout: post
+title: "noatime"
+---
+<a href="http://kerneltrap.org/node/14148">Linus says: "<span style="font-family:monospace">'noatime,data=writeback'</span> will quite likely be *quite* noticeable (with different effects for different loads), but almost nobody actually runs that way."</a> 
+    <p>
+    Well, if you need it, you <strong>really</strong> need it. Otherwise, why would you ever care? I also don't believe in this 10% number people are spouting. How much it effects you will be determined by how many files you access. I think that should be fairly obvious. I've worked on systems that would crash after just a few minutes without noatime. Yikes!
+    </p>

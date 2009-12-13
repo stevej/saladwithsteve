@@ -1,0 +1,17 @@
+---
+layout: post
+title: "Mozilla and RDF"
+---
+One nice thing about Mozilla using RDF for everything is that I was able to fix a bug without having to patch Mozilla itself. I ran into a problem where my windows were all 1 pixel wide and 1 pixel tall. I couldn't figure out how to maximize that so I just fired up emacs and edited my profile's localstore.rdf and
+    changed the relevant bits:
+    <br /><br />
+    <pre>
+    &lt;RDF:Description about="chrome://navigator/content/navigator.xul#main-window"
+    sizemode="normal"
+    screenY="0"
+    screenX="-5"
+    width="1110"
+    height="722" /&gt;
+    </pre>
+    <br />
+    Today I noticed in other parts of the internet, people are again confusing the RDF model with the RDF xml serialization syntax. If you don't like the xml format, just use N3. Don't fault the whole of RDF for the ugly xml syntax. Besides, all xml is ugly anyway. Speaking of which, the <a href="http://www.waterlang.org/">Water Language</a> has an interesting <a href="http://waterlang.org/doc/trouble_with_xml.htm">paper</a> critiquing xml 1.0. I think we all know where I stand on xml. 

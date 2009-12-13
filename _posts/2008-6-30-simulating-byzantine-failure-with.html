@@ -1,0 +1,97 @@
+---
+layout: post
+title: "Simulating Byzantine failure with SIGSTOP"
+---
+<p>
+    If your service relies on connecting to an internal network server and
+    that server isn't accepting connections, your client will obviously throw an
+    error. This happens often enough that you probably already check for this and do the right thing in your various projects. But what if the server is accepting connections but never
+    returning any data? This failure case is rare but very deadly.  Chet
+    mentioned that you could simulate this using <tt>SIGSTOP</tt> so I
+    decided to whip up an experiment with <tt>memcached</tt> as my victim.
+    </p>
+    <p>
+    <pre>
+    stevej@t42p:~$ ps auxww |grep memcache
+    stevej    3451  0.0  0.0   2928  1872 pts/0    T    01:21   0:00 memcached -vv -p 11211
+    stevej@t42p:~$ kill -stop 3451
+    </pre>
+    </p>
+    <p>
+    In another terminal:
+    </p>
+    <p>
+    <pre>
+    stevej@t42p:~$ irb
+    irb(main):001:0&gt; require 'rubygems'
+    =&gt; true
+    irb(main):002:0&gt; require 'memcache'
+    =&gt; true
+    irb(main):003:0&gt; CACHE = MemCache.new "localhost:11211"
+    =&gt; &lt;MemCache: 1 servers, 1 buckets, ns: nil, ro: false&gt;
+    irb(main):004:0&gt; CACHE.get("foo")
+    </pre>
+    </p>
+    <p>
+    The client library happily hung for several hours while I did other
+    things. How can a process that's suspended not timeout incoming
+    connections?  Well, it's the kernel that services network requests and
+    the process itself is only reading the buffers. If you want proof,
+    look at this tcpdump output. Remember, the process has already been
+    suspended by the time I ran tcpdump here.
+    </p>
+    <p>
+    <pre>
+    stevej@t42p:~$ sudo tcpdump -i lo port 11211
+    tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+    listening on lo, link-type EN10MB (Ethernet), capture size 96 bytes
+    18:02:40.576255 IP localhost.48124 &gt; localhost.11211: F 2018798159:2018798159(0) ack 2012359105 win 257 &lt;nop,nop,timestamp 15455978 14281170&gt;
+    18:02:40.577037 IP localhost.11211 &gt; localhost.48124: . ack 1 win 256 &lt;nop,nop,timestamp 15455979 15455978&gt;
+    18:03:19.037410 IP localhost.35662 &gt; localhost.11211: S 2731273926:2731273926(0) win 32792 &lt;mss 16396,sackOK,timestamp 15465593 0,nop,wscale 7&gt;
+    18:03:19.037435 IP localhost.11211 &gt; localhost.35662: S 2723119696:2723119696(0) ack 2731273927 win 32768 &lt;mss 16396,sackOK,timestamp 15465593 15465593,nop,wscale 7&gt;
+    18:03:19.037449 IP localhost.35662 &gt; localhost.11211: . ack 1 win 257 &lt;nop,nop,timestamp 15465593 15465593&gt;
+    18:03:19.037768 IP localhost.35662 &gt; localhost.11211: P 1:10(9) ack 1 win 257 &lt;nop,nop,timestamp 15465593 15465593&gt;
+    18:03:19.037776 IP localhost.11211 &gt; localhost.35662: . ack 10 win 256 &lt;nop,nop,timestamp 15465593 15465593&gt;
+    </pre>
+    </p>
+    <p>
+    So a connect timeout wouldn't help here, you need a recv timeout or
+    something else. Restarting your client process won't help at all,
+    it'll simply get stuck in the same place. In Ruby, the easiest thing
+    to do is to use the Timeout module. Sadly, it only has second
+    granularity but that's a lot better than hanging for several
+    hours. You can also set use Socket#setsockopt with a recv timeout if
+    you need finer grained timeout resolution.
+    </p>
+    <p>
+    <pre>
+    stevej@t42p:~$ irb
+    irb(main):001:0&gt; require 'rubygems'
+    =&gt; true
+    irb(main):002:0&gt; require 'memcache'
+    =&gt; true
+    irb(main):003:0&gt; CACHE = MemCache.new "localhost:11211"
+    =&gt; &lt;MemCache: 1 servers, 1 buckets, ns: nil, ro: false&gt;
+    irb(main):004:0&gt; require 'timeout'
+    =&gt; false
+    irb(main):005:0&gt; foo = Timeout::timeout(1) do
+    irb(main):006:1*   CACHE.get("foo")
+    irb(main):007:1&gt; end
+    /usr/lib/ruby/1.8/timeout.rb:54:in `cache_get': execution expired (Timeout::Error)
+    from /usr/lib/ruby/gems/1.8/gems/memcache-client-1.5.0/lib/memcache.rb:209:in `get'
+    from (irb):6:in `irb_binding'
+    from /usr/lib/ruby/1.8/timeout.rb:56:in `timeout'
+    from (irb):5:in `irb_binding'
+    from /usr/lib/ruby/1.8/irb/workspace.rb:52:in `irb_binding'
+    from /usr/lib/ruby/1.8/irb/workspace.rb:52
+    </pre>
+    </p>
+    <p>
+    Do you want to guess what happened when I sent <tt>SIGCONT</tt> to memcache? My client processes, even the ones that had been hanging for hours, immediately returned with the expected data.
+    </p>
+    <p>
+    The obvious thing to do is to write a new MemCache subclass decorating
+    all the calls to <tt>get</tt>, <tt>put</tt>, <tt>get_multi</tt>, etc
+    with safer versions. Don't naively trust that the expected data made
+    it to the cache.
+    </p>

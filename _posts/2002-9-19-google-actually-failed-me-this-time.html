@@ -1,0 +1,10 @@
+---
+layout: post
+title: "google actually failed me this time."
+---
+Because I couldn't find this anywhere else:
+    <br /><br />
+    So if you want to program with OpenGL in OS X without using Objective-C (since we only have the OpenGL and GLUT <b>frameworks</b>), it seems like you're out of luck. Although.. you _can_ use frameworks without using any other Objective-C. Either use Project Builder and add the two appliciable frameworks (under /System/Library/Frameworks) or use the <tt>-framework OpenGL -framework GLUT</tt> gcc options from the command-line. Don't forget, this is now <tt>#import &lt;GLUT/glut.h&gt;</tt> and not <tt>#include &lt;GL/glut.h&gt;</tt> as you're probably used to.
+    
+    <br /><br />
+    Happy Hacking!

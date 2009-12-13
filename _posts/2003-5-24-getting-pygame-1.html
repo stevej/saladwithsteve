@@ -1,0 +1,12 @@
+---
+layout: post
+title: ""
+---
+Getting <a href="http://www.pygame.org/">pygame</a> 1.5.5 to build on redhat 9 hinges on a few things: 
+    <ul>
+    <li>Knowing that ft_open_stream has been deprecated in the version of freetype2 that's been shipped with redhat 9 in favor of FT_OPEN_STREAM</li>
+    <li>Patching SDL_ttf to not gack when it looks for ft_open_stream</li>
+    <li>Using the smpeg and smpeg-devel rpms from redhat 7.3 and not from the loki site.</li>
+    </ul>
+    
+    Phew. It would have really helped me out if somebody else had written the above on their own blog and that had been in google.

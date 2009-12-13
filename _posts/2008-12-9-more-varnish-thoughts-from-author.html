@@ -1,0 +1,96 @@
+---
+layout: post
+title: "More Varnish: Thoughts from the Author"
+---
+<a href="http://people.freebsd.org/~phk/">Poul-Henning Kamp</a>, the lead author of Varnish, was kind enough to respond to my blog post.
+
+    <tt>
+    <p>
+    Hi Steve,
+    </p>
+    <p>
+    I read your comments about Varnish and thought I'd better explain
+    myself, feel free to post this if you want.
+    </p>
+    <p>
+    The reason why we don't multiplex threads in Varnish is that it has
+    not become a priority for us yet, and I am not convinced that we
+    will ever see it become a priority at the cost it bears.
+    </p>
+    <p>
+    A common misconception is that varnish parks a thread waiting for
+    the client to send the next request.  We do not, that would be
+    horribly stupid.  Sessions are multiplexed when idle.
+    </p>
+    <p>
+    The Varnish worker thread takes over when the request is completely
+    read and leaves the session again when the answer is delivered to
+    the network stack (and no further input is pending).
+    </p>
+    <p>
+    For a cache hit, this takes less than 10 microseconds, and we are
+    still shaving that number.
+    </p>
+    <p>
+    The problem about multiplexing is that it is horribly expensive,
+    both in system calls, cache pressure and complexity.
+    </p>
+    <p>
+    If we had a system call that was called "write these bytes, but
+    don't block longer than N seconds", multiplexing could be sensibly
+    implemented.
+    </p>
+    <p>
+    But with POSIX mostly being a historical society, it will cost you
+    around 7 system calls, some surprisingly expensive, to even find
+    out if multiplexing is necessary in the first place.
+    </p>
+    <p>
+    In comparison, today Varnish delivers a cache-hit in 7 system calls
+    *total* of which a few are technically only there for debugging.
+    </p>
+    <p>
+    The next good reason is that we have no really fiddled with the
+    sendbuffer sizes yet, but obviously, if you sendbuffer can swallow
+    the read, the thread does not wait.
+    </p>
+    <p>
+    And if that fails, a thread blocked in a write(2) system call is
+    quite cheap to have around.
+    </p>
+    <p>
+    It uses a little RAM, but it's not that much, and we can probably
+    tune it down quite a bit.
+    </p>
+    <p>
+    The scheduler does not bother more with the thread than it has to,
+    and when it does, the VM hardware system is not kickstarted every
+    time we cross the user/kernel barrier.
+    </p>
+    <p>
+    Without getting into spectroscoping comparisons between apples and
+    oranges, a thread just lounging around, waiting for the network
+    stack to do its thing, is much, much cheaper than a thread which
+    does a lot of system calls and fd-table walking, only to perform
+    a few and small(-ish) writes every time the network stack wakes up.
+    </p>
+    <p>
+    And the final reason why it may never become necessary to multiplex
+    threads, is that servers are cheap.
+    </p>
+    <p>
+    But if we get to the point where we need multiplexing, we will do
+    it.
+    </p>
+    <p>
+    But I like the old design principles from the X11 project: we will
+    not do it, until we have a server that doesn't work without it.
+    </p>
+    <p>
+    But if you are in the business of delivering ISOs to 56k modems
+    then yes, Varnish is probably not for you.
+    </p>
+    <p>
+    Poul-Henning
+    </p>
+    </tt>

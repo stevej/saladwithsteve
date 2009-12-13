@@ -1,0 +1,26 @@
+---
+layout: post
+title: ""
+---
+I ran across <a href="http://www.arstechnica.com/reviews/01q4/macosx-10.1/macosx-10.1-7.html">this old ArsTechnica article</a> with a section on Memory Diagnostics for OS X 10.1 and noticed that it said:  "do not be concerned with the scary looking 'Translation faults' line". What is a Translation Fault, you wonder? I'll explain:
+    <br /><br />
+    A Translation Fault occurs whenever the system call vm_fault() is called. vm_fault() is called whenever a Page Fault occurs.
+    <br /><br />
+    In order to explain what a Page Fault is, I need to give a glossy, 10,000 foot explanation of how memory is allocated in BSD (read: OS X). In order to run a program, you place it's code into memory and give it space to grow. If every program you ran had all of it's code (and space to grow) in memory, you wouldn't have any memory left. Therefore the OS will take parts of the code and put them on disk for retrieval when needed later.  That's called Paging (some people call it Swapping). When the OS goes looking for that code again, it won't be able to find the lost code and will throw a Page Fault. Throwing a Page Fault basically means you've called vm_fault(). vm_fault() finds the code on disk and puts it back into memory. That explains why you often see Pagein and Pageout variables be fairly close together in size on systems with low amounts of memory.
+    <br /><br />
+    Some of you, with lots of RAM, will notice that your Pageout and Pagein values vary wildly! On my own system, it looks like this:
+    <br /><br />
+    <pre>
+    Pageins:                       54403.
+    Pageouts:                       7013.
+    </pre>
+    <br /><br />
+    Well, if I didn't page out very often, how could I have paged in that much stuff? What was I paging in?
+    <br /><br />
+    One of the interesting details that I left out is that a program first being executed isn't placed into memory in one big chunk and then run. If it were, your large programs would take even longer to run than they currently do! What BSD does is split up the program into equal sized chunks of code and place only the first few chunks into memory. Then as it tries to execute more of your program, more Page Faults are thrown, and vm_fault() brings the needed program code into memory. It's an optimization. Your system is faster for it. 
+    <br /><br />
+    Don't sweat the Paging unless your system becomes intolerably slow. Then get more RAM.  You're never going to stop Paging and you really don't want to. Paging is a healthy and normal part of OS X life. 
+    <br /><br />
+    If you're really interested in all of this, then I suggest you read <a href="http://www.amazon.com/exec/obidos/tg/detail/-/0201549794/qid=1069136837/sr=1-1/ref=sr_1_1/104-7148332-9127968?v=glance&s=books">Design and Implementation of 4.4BSD</a>.
+    <br /><br />
+    <strong>Update:</strong> Of course, if you're even more curious, you can read <a href="http://www.opensource.apple.com/darwinsource/10.3.1/xnu-517/">the source</a>.

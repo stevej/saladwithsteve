@@ -1,0 +1,13 @@
+---
+layout: post
+title: "fail fast vs fail never"
+---
+Solaris kernel: fail as quickly as you can: dump some registers 
+    Linux kernel: "we want huge uptimes. keep running. don't mind if data gets corrupted"
+    
+    No such thing as "fail safely": it's an oxymoron.
+    
+    
+    I'm using Solaris for this example because a Solaris kernel engineer is who I was having this conversation with.
+    
+    Developers: different audience. You don't want javac to fail fast because you'd like to fix as many errors as you can. It's extremely hard for them to intelligently continue after running into an error. Most of the time they can only continue stupidly.

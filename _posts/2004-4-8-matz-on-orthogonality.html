@@ -1,0 +1,15 @@
+---
+layout: post
+title: "Matz on Orthogonality"
+---
+<em><div style="color:black; border-left:thin solid blue; padding-left:10px">"Bill Venners: Dave Thomas also claimed that if I ask you to add a feature that is orthogonal, you won't do it. What you want is something that's harmonious. What does that mean?
+    <br /><br />
+    Yukihiro Matsumoto: I believe consistency and orthogonality are tools of design, not the primary goal in design.
+    <br /><br />
+    Bill Venners: What does orthogonality mean in this context?
+    <br /><br />
+    Yukihiro Matsumoto: An example of orthogonality is allowing any combination of small features or syntax. For example, C++ supports both default parameter values for functions and overloading of function names based on parameters. Both are good features to have in a language, but because they are orthogonal, you can apply both at the same time. The compiler knows how to apply both at the same time. If it's ambiguous, the compiler will flag an error. But if I look at the code, I need to apply the rule with my brain too. I need to guess how the compiler works. If I'm right, and I'm smart enough, it's no problem. But if I'm not smart enough, and I'm really not, it causes confusion. The result will be unexpected for an ordinary person. This is an example of how orthogonality is bad."
+    </div>
+    </em>
+    <br />
+    <small>[from <a href="http://www.artima.com/intv/ruby2.html">The Philosophy of Ruby</a>]</small>

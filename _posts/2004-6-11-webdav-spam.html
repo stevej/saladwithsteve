@@ -1,0 +1,19 @@
+---
+layout: post
+title: "WebDAV spam"
+---
+I've been writing a WebDAV server in Common Lisp lately which means I've been leaving it running for long periods of time.  Check out this strange request I found when I got home tonight:
+    <br /><br />
+    <code>
+    SEARCH / HTTP/1.0<br />
+    Host: 127.0.0.1<br />
+    Content-Type: text/xml<br />
+    Content-Length: 1399
+    <br /><br />
+    &lt;?xml version="1.0"?&gt;<br />
+    &lt;g:searchrequest xmlns:g="DAV:"&gt;<br />
+    &lt;g:sql&gt;Select "DAV:displayname" from scope()&lt;/g:sql&gt;<br />
+    &lt;/g:searchrequest&gt;<br />
+    </code>
+    <br /><br />
+    SEARCH is part of <a href="http://greenbytes.de/tech/webdav/draft-reschke-webdav-search-latest.html">DASL</a>, an extension to WebDAV. It looks like somebody thought I might be a SharePoint server?

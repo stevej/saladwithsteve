@@ -1,0 +1,84 @@
+---
+layout: post
+title: "Disk vs. RAM. Round 1."
+---
+<a href="http://feedblog.org/2007/07/06/facebook-search/">Kevin says:</a>
+
+    <blockquote> I think more and more scalable compute infrastructures
+    are going to cheat and ditch disk (or memory buffered disk) in favor
+    of all in-memory data structures or SSD.  </blockquote>
+
+    <p>Putting all of your data in memory is <strong>not</strong> cheating, it's just
+    another trade off.</p>
+
+    <p>This is not a direct rebuttal to Kevin, it's just generic advice to
+    the random engineer who might run across this. To any managers out
+    there: I'm oversimplifying some issues. Your engineers will know
+    which. </p>
+
+    <p> Let's look at what Hennessy Patterson (4th Ed)
+    tells us about memory access times. I've ranked them fastest to
+    slowest.
+
+    <ol>
+    <li>Register: 250ps</li>
+    <li>L1 Cache: 1ns</li>
+    <li>RAM: 100ns</li>
+    <li>Disk 10ms</li>
+    </ol>
+
+    </p>
+
+    <p>We used to think of memory hierarchy layers being about an order of
+    magnitude slower than the preceeding layer but that hasn't been true
+    for some time. A disk access at 10ms is 1000 times slower than reading
+    from RAM. If you really care about user request latency then you don't want
+    to be hitting disk per-request if you can afford not to.</p>
+
+    <p>So are you comfortable adding several hundred milliseconds for a
+    request? You might be if you're a seriously resource constrained
+    startup and have a very large amount of data like your typical IR
+    system such as Kevin's does.  If you have a relatively small amount of
+    data then keeping everything in RAM is a pretty amazing trade-off.</p>
+
+    <p>As a medium-sized startup, what if you could pay 30 grand and see that
+    money have an <strong>immediate</strong> impact on those pesky,
+    painful performance graphs you keep. Wouldn't you spend that?</p>
+
+    <p>But it's easy to think about those dollars and tell yourself:
+    "well, disks also store bytes, why not stick our bytes in those
+    instead and use this money to pay for an off-site to get away from our
+    performance troubles?" I'm kidding, people don't actually say that out loud but
+    I've seen some eyes bug out of some sockets when looking at RAM
+    prices. It's just natural to want to use disk for on-line storage
+    since disks store so much data and seems so much cheaper if you don't
+    think about the latency difference.</p>
+
+    <p>But let's talk concretely. I've been talking about "small" and
+    "large" amounts of data. Let's talk about a specific scenario.</p>
+
+    <p>You have a popular restaurant review site. Each review is less than
+    half the size of this blog post. That's about 2k. A page has 20
+    reviews but because you don't have that much RAM, you need to read
+    those 20 reviews from disk. It takes a quarter-second to just read the
+    reviews from disk even with that fancy-pants storage array you
+    bought.</p>
+
+    <p>You're very lucky, your site has 10 million reviews. Continuing in
+    my oversimplification, that's like 20 gigabytes. A gig of ECC FB-DIMM
+    RAM is going for about $100/gig so that is 20k plus the extra 10k for
+    the machines to hold your new RAM. 30k to automatically drop a quarter
+    of a second from each request seems pretty cheap to me. Not only is
+    your site faster but it now has more capacity since it's not wasting a
+    quarter-second per request just moving a disk head around and reading
+    data into memory where it should have been to begin with.</p>
+
+    <p>One last point: It only feels like cheating because you have less
+    to worry about and is more expensive. Unfortunately, there's a certain class of
+    naive engineer who will think that they can build a system without the
+    expense and with 99.9% of the gains. (naive engineers love to throw
+    99.9% around!) They'll try to convince you that you just need another
+    layer of LRU caches or some more memcached installations. They'll be a
+    hero! They'll get a Founder's Award! Their company's VCs will take
+    notice and promise to fund anything they start! Fire that guy. Use his
+    salary to buy more RAM.</p>

@@ -1,0 +1,169 @@
+---
+layout: post
+title: "My first Thrift app"
+---
+<p>
+    When you find yourself working on big systems, a useful technique is
+    to decompose it into services. Moving from a big monolithic server to
+    a bunch of separate services can be a big challenge but if you had
+    foresight, many of your services were already decoupled in your system
+    from day 1 even though you were deploying it monolithicly.
+    </p>
+    <p>
+    A common technique for decomposing services is using RPC. At Google, we
+    used protocol buffers, which were briefly descibed in the <a href="http://labs.google.com/papers/sawzall-sciprog.pdf">Sawzall</a>
+    paper.
+    </p>
+    <p>
+    Basically, you describe your data and the interface that process the
+    data in a language-independent format (a DDL, essentially) and use code
+    generators to turn that DDL into set of objects in your target
+    langauge that can create and send those structures over the wire. This
+    makes it easy to write servers in one language and clients in another
+    and the generated code deals with serialization.
+    </p>
+    <p>
+    I found that using a DDL to describe your code and services was really
+    nice. When building a new service, you could simply reference your DDL
+    in the design doc and have a meanginful discussion about the service
+    without getting into the details of how it would be written until you had
+    the semantics nailed down.
+    </p>
+
+    <p>
+    Facebook, as they were growing, decided to move to a homegrown binary
+    RPC mechanism similar to protocol buffers called <a href="http://developers.facebook.com/thrift/">Thrift</a>.
+    </p>
+
+    <p>
+    Let's say I wanted to write a simple service that would tell the
+    client what time it was on the server. Here would be the DDL file
+    describing both the data and the service plus a little extra to help
+    out the generated code files.
+    </p>
+    <pre name="code" class="thrift">
+    # time.thrift
+    namespace java tserver.gen
+    namespace ruby TServer.Gen
+
+    typedef i64 Timestamp
+
+    service TimeServer {
+    // Simply returns the current time.
+    Timestamp time()
+    }
+    </pre>
+
+    <p>
+    After running <tt>thrift --gen java --gen rb time.thrift</tt> on the
+    file, I'd have an interface and server that I could implement in Java
+    and a client that I could use in Ruby.
+    </p>
+    <p>
+    Based on the generated java code, I could write a short server in Scala:
+    </p>
+
+    <pre name="code" class="scala">
+    <code>
+    package tserver
+
+    import tserver.gen._
+    import com.facebook.thrift.TException
+    import com.facebook.thrift.TProcessor
+    import com.facebook.thrift.TProcessorFactory
+    import com.facebook.thrift.protocol.TProtocol
+    import com.facebook.thrift.protocol.TProtocolFactory
+    import com.facebook.thrift.transport.TServerTransport
+    import com.facebook.thrift.transport.TServerSocket
+    import com.facebook.thrift.transport.TTransport
+    import com.facebook.thrift.transport.TTransportFactory
+    import com.facebook.thrift.transport.TTransportException
+    import com.facebook.thrift.server.TServer
+    import com.facebook.thrift.server.TThreadPoolServer
+    import com.facebook.thrift.protocol.TBinaryProtocol
+
+    /**
+    * TimeServer.time returns the current time according to the server.
+    */
+    class TimeServer extends TimeServer.Iface {
+    override def time: Long = {
+    val now = System.currentTimeMillis
+    println("somebody just asked me what time it is: " + now)
+    now
+    }
+    }
+
+    object SimpleServer extends Application {
+    try {
+    val serverTransport = new TServerSocket(7911)
+    val processor = new TimeServer.Processor(new TimeServer())
+    val protFactory = new TBinaryProtocol.Factory(true, true)
+    val server = new TThreadPoolServer(processor, serverTransport,
+    protFactory)
+    
+    println("starting server")
+    server.serve();     
+    } catch { 
+    case x: Exception =&gt; x.printStackTrace();
+    }
+    }
+    </code>
+    </pre>
+
+    <p>
+    (Geez, most of that space was taken up in my obsessive need to separate
+    out all my imports. You can thank Google for that bit of OCD.)
+    </p>
+    <p>
+    The client is even shorter:
+    </p>
+    <pre name="code" class="ruby">
+    <code>
+    #!/usr/bin/ruby
+    $:.push('~/thrift/lib/rb/lib')
+    $:.push('../gen-rb')
+
+    require 'thrift/transport/tsocket'
+    require 'thrift/protocol/tbinaryprotocol'
+    require 'TimeServer'
+
+    transport = TBufferedTransport.new(TSocket.new("localhost", 7911))
+    protocol = TBinaryProtocol.new(transport)
+    client = TimeServer::Client.new(protocol)
+
+    transport.open()
+
+    puts "I wonder what time it is. Let's ask!"
+    puts client.time()
+    </code>
+    </pre>
+    <p>
+    The ruby client took about 20ms to get an answer from the Scala server.
+    </p>
+    <p>
+    Thrift advantages:<br />
+    <ul>
+    <li>Pipelined connections means you spend less time in connection setup/teardown and TCP likes longer-lived connections.</li>
+    <li>Asynchronous requests. Asynchronous replies would be nice too but would be trickier to use.</li>
+    <li>Binary representation is much more efficient to transmit and process than, say, XML.</li>
+    </ul>
+    </p>
+    <p>
+    Thrift drawbacks: <br />
+    <ul>
+    <li>Integrating generated source into your build system can be tricky. 
+    Typically, you rarely have to regenerate your stubs but debugging generated code can be a huge pain.</li>
+    <li>It's Java server should move away from ServerSocket to NIO for increased throughput. 
+    That's probably not more than a week's work as long as the existing code isn't too tightly coupled.</li>
+    <li>Currently it doesn't build cleanly on the Mac. I did some work and got it working but I don't think it's used
+    extensively on the Mac so if that's your primary platform, you should be prepared to send them patches from time to time.</li>
+    </ul>
+    </p>
+    <p>
+    If you're looking to move towards decoupled services, Thrift is worth a hard look.
+    </p>
+    <p>
+    Here's a tarball with my <a href="http://saladwithsteve.com//code/timeserver.tar.gz">time
+    server</a>. It contains all the generated code as well as
+    libthrift.jar and a Makefile to run the example server.
+    </p>

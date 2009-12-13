@@ -1,0 +1,16 @@
+---
+layout: post
+title: ""
+---
+I feel that I should rewrite a paragraph in my earlier critique. I didn't realize that the concept of implicit context mapping from the URL was such a strange idea. Imagine the following<p>
+    
+    <ol>
+    <li> You have an Apache webserver with a Content Handler registered at the location "/users"
+    <li> You find a user via http://junk.com/users/stevej?mode=full
+    <li> the first character  of /stevej?mode=full is ripped off, and you now have the username sittting on top of your stack until the '? and the rest of the string is easily parsable.
+    </ol>
+    <P>
+    We've hereby completely bypassed the use of any regexes to determine where a user request should be routed to. viola.
+    
+    
+    

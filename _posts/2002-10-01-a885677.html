@@ -1,0 +1,23 @@
+---
+layout: post
+title: "Protecting yourself from the Wily Hacker"
+---
+Somebody said: "It's great that you shit all over the computer security industry, and indeed, the computer industry in general but what can we do to actually make things secure?"
+    <br /><br />
+    First, a few words: I'm going to use the XML-RPC api to Blogger as an example of potential theoretical confusion. This isn't to imply that there's anything wrong with either XML-RPC, the Blogger API, or Blogger; The Blogger API is no less secure than your bank account, your email account, or your home security system. What the Blogger API represents here is one of a million examples of the kind of pervasive thinking regarding how to keep things secure. I'm positing that there is another way of making systems secure. 
+    <br /><br />
+    We can start by understanding the potential causes of vulnerabilities. The capability secure crowd will argue, and I agree, that many (if not all) of these problems are caused by the unbundling of the ability to perform an action with the action's location. What this means is that anybody can perform any action as long as they can confuse the system into thinking that they're allowed to perform that action. Usernames and passwords are a good example. If I can figure out Ev's blogger password, I can then post to his weblog as him. Capability-security would prevent me from posing as Ev and therefore prevent me from
+    posting to his weblogs. Let's bust out some graphs:
+    <br /><br />
+    In traditional systems, you have the location of a service, such as http://plant.blogger.com/api/RPC2.blogger.newPost(), and your authority to perform
+    an action, your username and password.
+    <br /><br />
+    In a capability-secure system, knowing the location of a service means you have the authority to use the service. the service would appear as
+    http://plant.blogger.com/
+    <br /><br />
+    
+    
+    <img src="http://saladwithsteve.com/bloggerAPI.png" title="[graph of the Blogger API, showing the request http://plant.blogger.com/api/RPC2.blogger.newPost() and the authority, username+password+blogid+appkey, to make a new entry to a weblog]" alt="[a graphic showing unbundled delegation and authority: a recipe for potential confusion]" />
+    <br /><br />
+    <img src="http://saladwithsteve.com/capability.png" title="[graph of a capability; an unforgeable token that bundles the ability to perform an action with the authorization that you're allowed to perform that action]" alt="[a graphic showing bundled delegation and authority]" />
+    <br /><br />

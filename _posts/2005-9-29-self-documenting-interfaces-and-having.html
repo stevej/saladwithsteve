@@ -1,0 +1,60 @@
+---
+layout: post
+title: "Self-documenting interfaces and having nice tools."
+---
+<p>
+    I used to prefer dynamic languages (specifically Python, Common Lisp, and Ruby) over Java for my spare-time coding projects. That's changed recently and I've come to realize it's because of generics and the smart for-loop in Java 5.
+    </p>
+    <p>
+    Since Generics arrived in Java, my code has a much cleaner feel to it. Imagine a class for generating Atom feeds. Instead of the Python code:
+    </p>
+    <p>
+    <pre>
+    class Feed:
+    [...]
+    &nbsp;&nbsp;def get_entries():
+    &nbsp;&nbsp;&nbsp;&nbsp;return entries
+    </pre>
+
+    In Java, the method signature would tell me everything
+    <pre>
+    interface Feed {
+    &nbsp;&nbsp;Iterable&lt;Entry&gt; getEntries();
+    }
+    </pre>
+    <p>
+    Now I know immediately that what I will be getting can be shoved through a smart for-loop and the entries worked over like so:
+    </p>
+    <pre>
+    for (Entry e: getEntries()) {
+    &nbsp;&nbsp;doSomething(e);
+    }
+    </pre>
+    <p>
+    I had a good idea that the Python code would return a List (because I can see the return statement) but I'd have to run my tests to be sure it worked. With Java 5, I have a better chance at build self-documenting interfaces. I really like that.
+    </p>
+    <p>
+    I should probably also admit that IntelliJ IDEA has completely changed how I program in Java. I used to code with the following steps: 
+    </p>
+    <ol>
+    <li>make changes</li> 
+    <li>compile and wait forever.</li>
+    <li>read compiler errors</li>
+    <li>fix</li>
+    </ol>
+    Now it's more like: 
+    <ol>
+    <li>make changes</li>
+    <li>look at the sidebar for red</li>
+    <li>see red, go directly to the error</li>
+    <li>fix</li>
+    </ol>
+    <p>
+    Same amount of steps but because of incremental compilation it's a small fraction of the former time and I never leave my editor.
+    </p>
+    <p>
+    I'm sure I'll write some gushing blog posts about IDEA and Java 5 in a few weeks. Papa's got a new bag.
+    </p>
+    <small>
+    (Sorry, that's the last time I'll call myself "Papa")
+    </small>

@@ -1,0 +1,90 @@
+---
+layout: post
+title: "Ubuntu on the Mac Pro"
+---
+<p>
+    Last year I bought a Mac Pro to replace my aging Linux PC. It was a pretty significant upgrade, from a HyperThreaded 2.5Ghz Pentium 4 to a dual-processor, quad-core 3Ghz Xeon with 8G of RAM. Leopard is nice but I wanted to try and get Ubuntu running on it.
+    </p>
+    <p>
+    Here's the setup, I have 4 drives:
+    <ul>
+    <li>750G - Leopard</li>
+    <li>200G - Windows</li>
+    <li>750G - Backups</li>
+    <li>750G - To be Ubuntu</li>
+    </ul>
+    and wanted to install Ubuntu on the 4th drive.
+    </p>
+
+    <p>
+    Here are the basic steps I followed:
+    <ol>
+    <li> Install <a href="http://refit.sourceforge.net/">refit</a></li>
+    <li> Install from LiveCD (7.10)</li>
+    <li> Select manual Manual Partition and from the advanced options, choose hd3,0. I setup my disk with one ext3 partition and 1 swap partition.</li>
+    <li> After install, boot the linux disk from the refit menu</li>
+    <li> Grub will get to stage 1.5, you will see the menu but be unable to start the system, it will complain about unknown partition type</li>
+    <li> hit 'c'</li>
+    </ol>
+    </p>
+    <p>
+    Here's a transcript of my tinkering with grub to find the right drive with my initrd and kernel on it so I could boot my fancy Apple-branded Linux machine.
+    </p>
+    <pre>
+    grub> root (hd&lt;TAB&gt;
+    </pre>
+    showed a bunch of drives with various partitions but most importantly showed that hd0,0 had the Linux partition I was looking for. Even though with the ubuntu installer, we told it to use hd3, here we use hd0. the boot manager has shuffled the order of the drives. Telling the ubuntu installer to use hd0,0 will only result in an unbootable disk.
+    <pre>
+    grub> root (hd0,0)
+    grub> kernel /boot/vmlinuz&lt;TAB&gt;
+    </pre>
+    will show you some vmlinuz files. typically just the one ubuntu installed. pick it.
+    <pre>
+    grub> kernel /boot/vmlinuz-2.6.22-14-generic root=/dev/sdd1 ro
+    grub> initrd /boot/initrd.img-2.6.22-14-generic
+    grub> boot
+    </pre>
+    <p>
+    Now your system will boot. Edit your /boot/grub/menu.lst to point the root (hd0,0)
+    </p>
+    <p>
+    Now reboot and you will be in Ubuntu. Your wifi adapter won't work. <a href="https://help.ubuntu.com/community/WifiDocs/Driver/bcm43xx/Feisty_No-Fluff#head-bc33832c0547766a33c3a84f13f971ca757b2851">Follow these steps to enable ndiswrapper to use the windows drivers.</a>
+    </p>
+    <p>
+    I used a usb thumb drive to move the windows drivers zip file between my laptop and desktop.
+    </p>
+    <p>
+    Once you have networking up, don't forget to enable ssh so you can login in case you screw up your X config. 
+    </p>
+    <p>
+    Edit /etc/apt/sources.list to include what you might want.
+    </p>
+
+    <p>
+    I have an ATI Radeon X1950 Pro video card. To get it working, I simply installed <a href="http://albertomilone.com/nvidia_scripts1.html">Envy</a> which downloaded the right drivers and installed them for me. 
+    </p>
+    <p>
+    But it didn't span monitors, they were just clones so I ran aticonfig (which <a href="http://albertomilone.com/nvidia_scripts1.html">Envy</a> installed for me)
+    <pre>
+    aticonfig --initial=dual-head --overlay-on=1
+    </pre>
+    </p>
+    <p>
+    And we were good to go.
+    </p>
+
+    <p>
+    Banshee imported all my music from my iPod after converting it's database from an iTunes format it didn't recognize.
+    </p>
+    <p>
+    Using hibernate left the Mac's wifi adapter in a weird state. Rebooting it didn't help but booting into OS X and back into Linux corrected the wifi card.
+    </p>
+    <p>
+    The fan speed still isn't quite right, various fans will become louder and softer at odd intervals. I will try monkeying with lm-sensors later.
+    </p>
+    <p>
+    I have nice smooth fonts by running Emacs 23 from <a href="http://peadrop.com/blog/2007/01/06/pretty-emacs/">Alexandre Vassalotti</a>'s repo and the <a href="http://www.ghostscript.com/~raph/type/myfonts/inconsolata.html">Inconsolata</a> font for programming.
+    </p>
+    <p>
+    Overall, it's a great Linux machine and maybe one day it won't be so much trouble to get running. Hopefully my instructions will help you get it up and running. 
+    </p>

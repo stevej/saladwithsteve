@@ -1,0 +1,22 @@
+---
+layout: post
+title: "False Continuums"
+---
+<p>
+    People like to categorize things into continuums, I've noticed. Take databases: embedded (Berekely DB, Mnesia, Metakit, SQLite) vs. distributed (SQL Server, Kdb+, Matisse, FramerD). This distinction exists only because the authors have tended to be specialized in those ways, not because there is a fundamental reason that <tt>embedded</tt> and <tt>distributed</tt> can't be treated as axes and both implemented in a product.
+    </p>
+    <p>
+    In a moment we'll discuss what that would be like but first let's talk about the present: SQL + Java. In this world, mismatches rule: you access your data through specific patterns <small>(<a href="http://www.martinfowler.com/eaaCatalog/activeRecord.html">Active Record</a>, so <a href="http://wiki.rubyonrails.com/rails/show/ActiveRecord">masterfully woven into Rails</a> comes to mind)</small>, use application-agnostic <small>(Memcached, a poor man's <a href="http://foldoc.doc.ic.ac.uk/foldoc/foldoc.cgi?Linda">Linda</a>)</small> and application-specific caching <small>(everybody who's written a buggy <a href="http://foldoc.doc.ic.ac.uk/foldoc/foldoc.cgi?LRU">LRU</a> implementation to cache something in an app you've written, please raise your hand)</small> layers between your massively expensive relational databases and your cheap appservers. You rely on a thin, flimsy pipe between the host language and your data, drinking the ocean through a leaky straw. Ever have to recompile your Java app because you missed a semi-colon or a parenthesis in your SQL? Ever wonder at night if your code is vulnerable to a SQL injection attack? This is a result of the mismatch I'm talking about.
+    </p>
+    <p>
+    Object databases like ZODB and embedded databases like Mnesia offer a unified type system with the host language but in doing so are tied to that specific language <small>(Python and Erlang respectively in this case)</small> and in some cases to a specific machine.
+    </p>
+    <p>
+    I want a database where I can store my objects on the network, with locality defined appropriately to the data's usage, <small>(in my main memory if I need it or stored on a disk on a random machine somewhere otherwise: why do you think God invented the memory heirarchy? that reminds me: the network should replace the tape drive in the traditional memory heirarchy chart)</small>, with a unified type system so I can use the data structures already available to me: dictionaries in Python, structs/objects in Common Lisp, Collections in Java: all simulatenously on the same database. I want to be able to define query mechanims appropriate to my problem space and to work over the data with similarly appropriate means: whether through prolog-style backtracking, declarative statements like in SQL, vectors like in K, dataflow variables like in Mozart or E, frames in FramerD, Iterators in Java/C++, or even XQuery or RDF, it should be my choice since it's my problem. I should be allowed to make the tradeoffs since it's my butt on the line.
+    </p>
+    <p>
+    This is totally buildable. You can write the prototype in Lisp where you would already have a unified type system <small>(code is data and all that jazz)</small>, easy ways to define new query mechanisms <small>(hint: just use macros)</small>, fast I/O <small>(every modern common lisp implementation is compiled native)</small>, and competitors too scared to follow you into battle <small>(Blub paradox and what-not)</small>.
+    </p>
+    <p>
+    I guess you can tell what I spent my one-day vacation working on. I wish I had more to show than just a buggy B+-tree written in Lisp.
+    </p>

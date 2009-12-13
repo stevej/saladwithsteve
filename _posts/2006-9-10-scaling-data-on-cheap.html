@@ -1,0 +1,12 @@
+---
+layout: post
+title: "Scaling data on the cheap"
+---
+<p>
+    <a href="http://snarfed.org/space/scaling_data_on_the_cheap.html">Scaling Data on the Cheap</a> by <a href="http://snarfed.org/">Ryan Barrett</a> from Google. A few things to note:
+    </p>
+    <p>
+    <strong>Don't shard by hash</strong> because when you have to reshard, you have to move ALL of your data. Ideally, you can add shards without rebalancing.
+    </p>
+    <p><strong>Use bloom filters</strong> to help you know which shard your data is contained in without hitting the shard. That technique is also used in BigTable (see Section 6 of the recently published BigTable paper).
+    </p>

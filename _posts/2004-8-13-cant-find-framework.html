@@ -1,0 +1,9 @@
+---
+layout: post
+title: "Can't find Framework"
+---
+General OS X Porting Note:
+    <br /><br />
+    If you run into an error like <code>ld: can't locate framework for: -framework ./module.o</code>, you can bet that it means that the framework wasn't figured out by the configure script properly. Dig for that code in the Makefile, see what variable it's using. If that variable isn't set, set it in the autoconf script (or just hack it into the Makefile and send a note to the developers). 
+    <br /><br />
+    In this case I figured that it was supposed to read <code>-framework Python ./module.o</code> so I just needed to set it the <code>Python</code> part. 

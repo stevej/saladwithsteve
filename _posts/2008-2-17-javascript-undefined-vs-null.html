@@ -1,0 +1,78 @@
+---
+layout: post
+title: "JavaScript undefined vs. null"
+---
+<p>
+    I was reading a modern, popular book on JavaScript last night and was disappointed by the handling of null. The author started out doing a lot of checking like:
+    </p>
+    <code>
+    if (foo == null) {
+    &nbsp;&nbsp;alert('foo is not set.');
+    }
+    </code>
+    <p>
+    Then told the reader that they could just remove the <code>== null</code> because javascript knows you mean <code>"== null"</code>
+    </p>
+    <p>
+    What?! This isn't why you don't check for equality with null. It's because <code>foo == null</code> doesn't even remotely do what most people think it does in this context.
+    </p>
+    <p>
+    It's a commonly held belief that uninitialized properties in JavaScript are set to <code>null</code> as default values. People believe this mostly for 2 reasons: 1) <code>foo == null</code> returns true if foo is undefined and 2) authors don't teach JavaScript properly.
+    </p>
+    <p>
+    A property, when it has no definition, is undefined. Put that way, it's pretty obvious.
+    </p>
+    <p>
+    <code>null</code> is an object. It's type is <code>null</code>. <code>undefined</code> is not an object, it's type is <code>undefined</code>. That part is less obvious.
+    </p>
+    <p>
+    The real trouble is that <code>==</code> does type coercion. <code>===</code> checks for both type and value and is the most intuitive form of equality in JavaScript, in my opinion.
+    </p>
+    <p>
+    I fired up a <a href="http://www.billyreisinger.com/jash/">Jash</a> console to hopefully clear things up for you.
+    </p>
+    <p>
+    <pre>
+    &gt;&gt; window.hello
+    null
+    &gt;&gt; window.hello.something
+    window.hello has no properties
+    &gt;&gt; window.hello == null
+    true
+    &gt;&gt; window.hello === null
+    false
+    &gt;&gt; window.hello === undefined
+    true
+    &gt;&gt; if (window.hello) { alert('truthy'); } else { alert('falsy'); } // will print falsy.
+    null
+    &gt;&gt; window.hello == undefined
+    true
+    &gt;&gt; null == undefined
+    true // there's the rub, sir.
+    &gt;&gt; null
+    null
+    &gt;&gt; undefined
+    null
+    &gt;&gt; typeof null
+    object
+    &gt;&gt; typeof undefined
+    undefined
+    </pre>
+    </p>
+    <p>
+    So people write
+    <pre>
+    if (foo == null) {
+    &nbsp;&nbsp; foo = "Joe";
+    }
+    </pre>
+
+    When what they really mean is
+    <pre>
+    if (!foo) {
+    &nbsp;&nbsp; foo = "Joe";
+    }
+    </pre>
+
+    If you find yourself with a lot of <code>null</code> checks in your JavaScript, set aside some time and watch Douglas Crockford's <a href="http://video.yahoo.com/watch/111593">"The JavaScript Programming Language"</a> talk on Yahoo Video. It's part 1 of a 3-part series of excellent and enlightening talks.
+    </p>

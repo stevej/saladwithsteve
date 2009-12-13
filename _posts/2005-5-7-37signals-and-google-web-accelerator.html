@@ -1,0 +1,34 @@
+---
+layout: post
+title: "37Signals and the Google Web Accelerator"
+---
+<p>
+    So, the Google Web Accelerator prefetches links. Not a big surprise. <strong>Unless</strong> clicking on a link destroys or alters data and you can't figure out why your stuff is gone. This is not actually the web accelerators fault.
+    </p>
+    <p>
+    Now, <a href="http://www.franklinmint.fm/blog/archives/000379.html">good</a> <a href="http://radar.oreilly.com/archives/2005/05/google_web_acce_1.html">natured</a> <a href="http://simon.incutio.com/archive/2005/05/06/bad">engineers</a> worldwide are asking: "Why isn't POST good enough for you?" 
+    </p>
+    <p>
+    Actually, some budding RESTafarians are not quite asking, they are calling you out, in their Napoleon Dynamite way, "Goll, using GET for non-idempotent requests. Idiot! Read RFC 2616, it's only like the sweetest RFC ever."
+    </p>
+    <p>
+    Ahem.
+    </p>
+    <p>
+    So, lots of web developer-types don't like POST for one simple reason: because they force you to use ugly form submission buttons. Ugly? We are engineers, if it's not ugly, it probably doesn't even work, right?
+    </p>
+    <p>
+    Visual aesthetics have again gotten in the way of clean engineering practices. Hell, at Blogger we even have some non-idempotent requests behind GET oursleves. So how do we keep things like the Google Web Accelerator, various web proxies, and all of the nasties out there from hurting us? We use JavaScript! But I don't mean just in <tt>onclick</tt>s, which stuff that doesn't speak JavaScript will ignore. You'll see lots of javascript:void(0) URIs floating around. See, if your hyperlink isn't a URI, there's nothing to fetch. If nothing gets fetched, nothing gets destroyed.
+    </p>
+    <p>
+    We know it's bad. We do it anyway. We just try to be, you know, savvy about it. Sorry this is so much trouble. It really is a big hassle, and it really is the browser's fault (yet again).
+    </p>
+    <p>
+    Think of it this way. It's dangerous; like pausing a running program, changing some of it's instructions, and resuming program execution. But if you couldn't do that then you would never be able to set a breakpoint in a debugger and then you would have to use <tt>printf</tt> or <tt>log4j</tt> for all of your debugging. Heh, I bet you do, anyway, don't you?
+    </p>
+    <p>
+    Hope that helps.
+    </p>
+    <p>
+    <small>(If you think this tone is too personal, then that's becuase this is not written specifically to the 37Signals folks, who I think work hard and make neat stuff, it's actually written to you.)</small>
+    </p>

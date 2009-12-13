@@ -1,0 +1,43 @@
+---
+layout: post
+title: "Functional Refactoring #1: Replace conditional inside fold with filter."
+---
+<p>
+    Recently, while working on some code, I noticed that I have been making the same transform on lots of functional code in Scala. I think it's clearly a Refactoring and should have a name.
+    </p>
+
+    <p>
+    <h4>"Replace conditional inside fold with filter"</h4>
+    </p>
+
+    <p>
+    The idea is that if you're folding over items in a list and manipulating them based on a conditional, it might be clearer if you pull out the conditional and filter the list on that conditional first.
+    </p>
+    <p>
+    Here is a contrived example borrowed from a fake test suite. Let's say I had code with a conditional inside of a fold:
+    </p>
+    <p>
+    {% highlight scala %}
+    sampleUsers.values.foreach { u =>
+      if (u.id != 0) {
+        Authentication(u.id, u.hash).passwordToken mustEqual u.passwordToken
+      }
+    }
+    {% endhighlight %}
+    </p>
+    <p>
+    Let's apply this refactoring to make the test case clearer.
+    </p>
+    <p>
+      {% highlight scala %}
+    sampleUsers.values.filter(u => u.id != 0).foreach { u =>
+      Authentication(u.id, u.hash).passwordToken mustEqual u.passwordToken
+    }
+      {% endhighlight %}
+    </p>
+    <p>
+    This works with multiple inner conditionals as well. You can fit them into one filter or chain multiple filters together.
+    </p>
+    <p>
+    Even though this is a simple refactoring, it seems like a worthwhile place to start cataloging.
+    </p>
