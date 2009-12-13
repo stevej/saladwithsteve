@@ -1,16 +1,18 @@
 <! DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-  <head>
-    <title>saladwithsteve</title>
-    <link rel="alternate" type="application/atom+xml" href="/atom.xml" />
-    {% include css.html %}
-    {% include js.html %}
-  </head>
-  <body>
+<head>
+  <title>saladwithsteve</title>
+  <link rel="alternate" type="application/atom+xml" href="/atom.xml" />
+  {% include css.html %}
+  {% include js.html %}
+</head>
+<body>
+  <div class="container showgrid">
     {% include search.html %}
     {{ content }}
-  <div id="footer">
-    {% include footer.html %}
+    <div id="footer">
+      {% include footer.html %}
+    </div>
   </div>
-  </body>
+</body>
 </html>
