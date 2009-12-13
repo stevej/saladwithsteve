@@ -1,0 +1,28 @@
+---
+layout: nil
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+ <title>saladwithsteve</title>
+ <link href="http://saladwithsteve.com/atom.xml" rel="self"/>
+ <link href="http://saladwithsteve.com/" rel="alternate"/>
+ <updated>{{ site.time | date_to_xmlschema }}</updated>
+ <id>http://saladwithsteve.com/</id>
+ <author>
+   <name>Steve Jenson</name>
+   <email>stevej@pobox.com</email>
+ </author>
+ {% for post in site.posts limit:1 %}
+ <entry>
+   <title>{{ post.title }}</title>
+   <link href="http://saladwithsteve.com{{ post.url }}"/>
+   <updated>{{ post.date | date_to_xmlschema }}</updated>
+   <id>http://saladwithsteve.com{{ post.url }}</id>
+   <content type="html">{{ post.content | xml_escape }}</content>
+   <author>
+     <name>Steve Jenson</name>
+     <uri>http://saladwithsteve.com/about.html</uri>
+   </author>
+ </entry>
+ {% endfor %}
+</feed>

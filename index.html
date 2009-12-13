@@ -1,0 +1,14 @@
+---
+layout: default
+title: "You Are Here"
+---
+<h2 id="intro">saladwithsteve</h2>
+{% for post in site.posts limit:1 %}
+  <div class="post">
+    <h3>{{ post.title }}</h3>
+  {{ post.content }}
+  <p class="signoff">
+    &mdash;<a href="{{ post.url }}">{{ post.date | date: "%b %d, %Y" }}</a>
+  </p>
+  </div>
+{% endfor %}
