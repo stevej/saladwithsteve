@@ -12,7 +12,7 @@ layout: nil
    <name>Steve Jenson</name>
    <email>stevej@pobox.com</email>
  </author>
- {% for post in site.posts limit:1 %}
+ {% for post in site.posts limit:20 %}
  <entry>
    <title>{{ post.title }}</title>
    <link href="http://saladwithsteve.com{{ post.url }}"/>
