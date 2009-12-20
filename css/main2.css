@@ -1,0 +1,420 @@
+/*-----------------------------------------------
+Blogger Template Style
+Name         :  freshCitrus
+Converted by :  AskerAkbar
+URL          :  www.bloggerthemes.net
+Designed by  :  Freethemelayouts
+URl          :  http://freethemelayouts.com/
+freshCitrus blogger theme comes under a Creative Commons license.
+They are free of charge to use as a theme for your blog and
+you can make changes to the templates to suit your needs.
+Please you must keep the footer credit links intact.
+----------------------------------------------- */
+#navbar-iframe {
+display: none !important;
+}
+* {
+margin:0;
+padding:0;
+}
+body {
+background:#fff url(http://img44.imageshack.us/img44/9209/75052640.jpg) no-repeat center top;
+text-align:center;
+font-family:Georgia, "Lucida Grande";
+font-size:12px;
+color:#676767;
+}
+.inv {
+display:block;
+visibility:hidden;
+}
+p {
+padding:5px 0;
+}
+a {
+text-decoration:none;
+color:#70a529;
+}
+a:hover {
+color:#0989ae;
+}
+.alignright {
+float:right;
+}
+.alignleft {
+float:left;
+}
+.aligncenter {
+display:block;
+margin:0 auto;
+}
+a img {
+border-width:0;
+}
+#web-20 {
+width:95px;
+height:98px;
+position:absolute;
+background:url(http://1.bp.blogspot.com/_WoCJXgXotb8/SuJyl2G1yDI/AAAAAAAABIU/CxfAuLLpdEA/s1600/web20.png) no-repeat 0 0;
+right:-43px;
+top:153px;
+z-index:100;
+}
+/* Header
+-----------------------------------------------
+*/
+#navigation {
+height:28px;
+padding-left:40px;
+overflow:hidden;
+}
+#navigation li {
+list-style-type:none;
+width:90px;
+height:28px;
+background:url(http://2.bp.blogspot.com/_WoCJXgXotb8/SuJyjYwEd_I/AAAAAAAABGk/j87d75nC6ks/s1600/navlist-bg.gif) no-repeat right top;
+padding-right:2px;
+text-align:center;
+float:left;
+}
+#navigation li a {
+width:90px;
+height:22px;
+display:block;
+color:#85bacb;
+padding-top:6px;
+text-decoration:none;
+}
+#navigation li a:hover {
+color:#fff;
+background:url(http://4.bp.blogspot.com/_WoCJXgXotb8/SuJyj-pE-gI/AAAAAAAABG0/yAuD-K0ihFM/s1600/navlist-hover.png) no-repeat 0 0;
+}
+#navigation .current_page_item a,#navigation .current_page_item a:hover {
+width:90px;
+height:22px;
+display:block;
+color:#fff;
+background:url(http://4.bp.blogspot.com/_WoCJXgXotb8/SuJyj-pE-gI/AAAAAAAABG0/yAuD-K0ihFM/s1600/navlist-hover.png) no-repeat 0 0;
+padding-top:6px;
+text-decoration:none;
+}
+#search {
+position:absolute;
+right:20px;
+top:10px;
+}
+#searchform {
+width:230px;
+overflow:hidden;
+}
+#searchform input {
+float:left;
+}
+#searchform #s {
+width:160px;
+height:17px;
+border:0;
+color:#796a4b;
+padding-top:3px;
+background-color:transparent;
+}
+#searchform #searchsubmit {
+width:54px;
+height:16px;
+background:url(http://3.bp.blogspot.com/_WoCJXgXotb8/SuJylUPlyTI/AAAAAAAABH8/oFySqjR1VZg/s1600/search.gif) no-repeat 0 0;
+border:0;
+cursor:pointer;
+margin-left:5px;
+}
+#header-wrapper {
+width:900px;
+height:124px;
+}
+#header-inner {
+background-position:center;
+margin-left:auto;
+margin-right:auto;
+}
+#header {
+}
+#header h1 {
+width:235px;
+color:#FFF;
+height:50px;
+line-height:81px;
+padding-top:10px;
+font-family:arial;
+}
+#header a {
+color:#FFF;
+text-decoration:none;
+}
+#header a:hover {
+color:#FFF;
+}
+#header .description {
+width:860px;
+color:#A1D409;
+display:block;
+font-size:13px;
+text-transform:lowercase;
+font-style:italic;
+font-family:arial;
+z-index:100;
+}
+#header img {
+margin-left:auto;
+margin-right:auto;
+}
+#sub-nav {
+width:900px;
+height:56px;
+}
+#sub-nav .atom {
+width:70px;
+height:56px;
+display:block;
+background:url(http://4.bp.blogspot.com/_WoCJXgXotb8/SudjVNVu0II/AAAAAAAABQ4/9Mx8MbyE-nY/s1600/rss.png) no-repeat 0 0;
+margin-left:18px;
+}
+#sub-nav .atom:hover {
+background:url(http://4.bp.blogspot.com/_WoCJXgXotb8/SudjVNVu0II/AAAAAAAABQ4/9Mx8MbyE-nY/s1600/rss.png) no-repeat 0 -56px;
+}
+/* Outer-Wrapper
+----------------------------------------------- */
+#outer-wrapper {
+width:900px;
+margin:0 auto;
+text-align:left;
+position:relative;
+}
+#main-wrapper {
+width:636px;
+padding:0 20px 30px;
+float:left;
+}
+#main-wrapper ul,#main-wrapper ol {
+margin-top:0;
+margin-right:0;
+margin-bottom:20px;
+margin-left:20px;
+margin:0 0 20px 20px;
+padding:0;
+}
+#sidebar-wrapper {
+width:224px;
+padding-top:55px;
+float:left;
+word-wrap:break-word;
+/* fix for long text breaking sidebar float in IE */
+overflow:hidden;
+/* fix for long non-text content breaking IE sidebar float */
+}
+/* Headings
+----------------------------------------------- */
+.sidebar h2 {
+font-size:20px;
+font-weight:normal;
+color:#0989ae;
+padding-left:14px;
+background:url(http://4.bp.blogspot.com/_WoCJXgXotb8/SuJylKZHELI/AAAAAAAABHs/vpOHX-YtH2M/s1600/sdb-title.png) no-repeat right bottom;
+}
+/* Posts
+-----------------------------------------------
+*/
+h2.date-header {
+display:none;
+}
+.post {
+width:636px;
+border-bottom:1px solid #eee;
+padding-top:15px;
+margin-bottom:15px;
+}
+.post-body {
+width:636px;
+line-height:1.6em;
+padding-top:10px;
+}
+.post h3 {
+font-size:24px;
+font-weight:normal;
+color:#70a529;
+margin:0;
+padding:0;
+}
+.post h3 a {
+color:#70a529;
+text-decoration:none;
+}
+.post h3 a:hover {
+color:#777;
+text-decoration:none;
+}
+.meta-data {
+width:636px;
+height:23px;
+color:#b5b5b5;
+font-size:14px;
+font-style:italic;
+}
+.comment-link {
+}
+.meta-data .comment-link a {
+text-decoration:none;
+color:#fff;
+}
+.post-body blockquote {
+line-height:1.3em;
+}
+.post-labels {
+margin:0 5px;
+}
+.post-footer {
+margin:.75em 0;
+color:#999999;
+text-transform:uppercase;
+letter-spacing:.1em;
+font:normal normal 78% 'Trebuchet MS', Trebuchet, Arial, Verdana, Sans-serif;
+line-height:1.4em;
+}
+.post img {
+padding:4px;
+border:1px solid #EBEBEB;
+}
+.post blockquote {
+margin:1em 20px;
+font-style:italic;
+font-size:14px;
+}
+.post blockquote p {
+margin:.75em 0;
+}
+/* Comments
+----------------------------------------------- */
+#comments h4 {
+margin:1em 0;
+font-weight:bold;
+line-height:1.4em;
+text-transform:uppercase;
+letter-spacing:.2em;
+color:#999999;
+}
+#comments-block {
+margin:1em 0 1.5em;
+line-height:1.6em;
+}
+#comments-block .comment-author {
+margin:.5em 0;
+}
+#comments-block .comment-body {
+margin:.25em 0 0;
+}
+#comments-block .comment-footer {
+margin:-.25em 0 2em;
+line-height:1.4em;
+text-transform:uppercase;
+letter-spacing:.1em;
+}
+#comments-block .comment-body p {
+margin:0 0 .75em;
+}
+.deleted-comment {
+font-style:italic;
+color:gray;
+}
+#blog-pager-newer-link {
+float:left;
+}
+#blog-pager-older-link {
+float:right;
+}
+#blog-pager {
+text-align:center;
+}
+.feed-links {
+clear:both;
+line-height:2.5em;
+}
+/* Sidebar Content
+----------------------------------------------- */
+.sidebar {
+}
+.sidebar ul {
+list-style:none;
+width:224px;
+background:url(http://4.bp.blogspot.com/_WoCJXgXotb8/SuJylIn3E6I/AAAAAAAABH0/3td0qk13pOk/s1600/sdb-ul.gif) repeat-y 0 0;
+}
+.sidebar li {
+list-style-type:none;
+width:224px;
+height:34px;
+padding-bottom:0;
+padding-top:10px;
+background:url(http://2.bp.blogspot.com/_WoCJXgXotb8/SuJykxWqCNI/AAAAAAAABHk/pws5BkO-jxc/s1600/sdb-li.gif) no-repeat right bottom;
+}
+.sidebar .widget {
+width:224px;
+padding-bottom:60px;
+margin-bottom:20px;
+background:url(http://4.bp.blogspot.com/_WoCJXgXotb8/SuJyknr5c1I/AAAAAAAABHU/uKzH4O7qVs4/s1600/sdb-bg.gif) no-repeat left bottom;
+}
+.sidebar .widget-content {
+padding-left:20px;
+padding-top:20px;
+}
+.main .Blog {
+border-bottom-width:0;
+}
+/* Profile
+----------------------------------------------- */
+.profile-img {
+float:left;
+margin-top:0;
+margin-right:5px;
+margin-bottom:5px;
+margin-left:0;
+padding:4px;
+border:1px solid #cccccc;
+}
+.profile-data {
+margin:0;
+text-transform:uppercase;
+letter-spacing:.1em;
+font:normal normal 78% 'Trebuchet MS', Trebuchet, Arial, Verdana, Sans-serif;
+color:#999999;
+font-weight:bold;
+line-height:1.6em;
+}
+.profile-datablock {
+margin:.5em 0;
+}
+.profile-textblock {
+margin:.5em 0;
+line-height:1.6em;
+}
+.profile-link {
+font:normal normal 78% 'Trebuchet MS', Trebuchet, Arial, Verdana, Sans-serif;
+text-transform:uppercase;
+letter-spacing:.1em;
+}
+/* Footer
+----------------------------------------------- */
+#footer {
+clear:both;
+color:#d0d0d0;
+width:900px;
+margin-top:30px;
+padding:5px 0 20px;
+border-top:1px solid #eee;
+}
+#footer a {
+color:#d0d0d0;
+text-decoration:none;
+}
+#footer a:hover {
+text-decoration:underline;
+}
+#footer .check {
+color:#bed678;
+}
