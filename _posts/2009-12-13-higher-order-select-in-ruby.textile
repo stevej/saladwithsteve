@@ -1,9 +1,12 @@
 ---
-layout: post
+layout: post2
 location: San Francisco
 ---
 
 h1. Higher Order Select in Ruby
+
+When I was converting my blog to jekyll, I had to write a nested
+select in Ruby and found it to be a little painful.
 
 In Ruby:
 {% highlight ruby %}
