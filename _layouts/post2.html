@@ -1,0 +1,14 @@
+---
+layout: default2
+---
+<div class="post">
+  <div class="post-title">
+    <h3 class="post-title"><a href="{{ post.url }}">{{ post.title }}</a></h3>
+  </div>
+  <article class="post-body">
+    {{ content }}
+  </article>
+  <p class="signoff">
+    {{ post.location }} &mdash; {{ post.date | date: "%d %B, %Y" }}
+  </p>
+</div>
