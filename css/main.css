@@ -1,3 +1,10 @@
-title { color:#C13100; }
+h2.title {
+    padding: 1em;
+    font-family: "Trebuchet MS", verdana;
+    font-size: 250%;
+    color:white;
+    background-color:black;
+}
 body { margin:20px 0; }
 p.signoff {  font-style: italic;}
+.footer { background-color:black; }
