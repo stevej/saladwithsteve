@@ -9,7 +9,9 @@ When I was converting my blog to jekyll, I had to write a nested
 select in Ruby and found it to be a little painful.
 
 In Ruby:
+
 {% highlight ruby %}
+
 # For a given feed, return all the entries that
 # are blog posts rather than templates, etc.
 def posts(feed)
@@ -20,9 +22,12 @@ def posts(feed)
     end.empty?
   end
 end
+
 {% endhighlight %}
 
-In scala
+In scala, things are a little simpler thanks to anaphora: the ability
+to easily reference earlier state implicitly. That's what the _ means
+in this context.
 
 {% highlight scala %}
 feed.entries.filter(!_.categories.filter(_.term == "http://schemas.google.com/blogger/2008/kind#post").isEmpty)
