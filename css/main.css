@@ -7,7 +7,7 @@ body {
     background:#fff url(http://img44.imageshack.us/img44/9209/75052640.jpg) no-repeat center top;
     text-align:center;
     font-family:Georgia, "Lucida Grande";
-    font-size:20px;
+    font-size:18px;
     color:#676767;
 }
 
@@ -62,6 +62,7 @@ a img {
 #navigation {
     height:28px;
     padding-left:40px;
+    font-size:14px;
     overflow:hidden;
 }
 
@@ -247,6 +248,7 @@ a img {
 h2.date-header {
     display:none;
 }
+
 .post {
     width:636px;
     border-bottom:1px solid #eee;
@@ -265,7 +267,7 @@ h2.date-header {
     font-weight:normal;
     color:#70a529;
     margin:0;
-    padding:0;
+    padding:10;
 }
 
 .post h3 a {
