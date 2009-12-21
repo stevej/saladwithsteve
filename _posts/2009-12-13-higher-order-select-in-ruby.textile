@@ -1,0 +1,26 @@
+---
+layout: post
+location: San Francisco
+---
+
+h1. Higher Order Select in Ruby
+
+In Ruby:
+{% highlight ruby %}
+# For a given feed, return all the entries that
+# are blog posts rather than templates, etc.
+def posts(feed)
+  # The post must have a category of type #post
+  feed.entries.select do |entry|
+    !entry.categories.select do |c|
+      c.term == 'http://schemas.google.com/blogger/2008/kind#post'
+    end.empty?
+  end
+end
+{% endhighlight %}
+
+In scala
+
+{% highlight scala %}
+feed.entries.filter(!_.categories.filter(_.term == "http://schemas.google.com/blogger/2008/kind#post").isEmpty)
+{% endhighlight %}
