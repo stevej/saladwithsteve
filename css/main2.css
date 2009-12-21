@@ -418,3 +418,7 @@ text-decoration:underline;
 #footer .check {
 color:#bed678;
 }
+
+
+
+p.signoff { font-style: italic; }
