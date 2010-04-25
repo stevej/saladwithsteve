@@ -1,9 +1,10 @@
 ---
 layout: post
 location: San Francisco
+title: Higher Order Select in Ruby
 ---
 
-h1. Higher Order Select in Ruby
+h1. {{ page.title }}
 
 When I was converting my blog to jekyll, I had to write a nested
 select in Ruby and found it to be a little painful.
@@ -25,10 +26,21 @@ end
 
 {% endhighlight %}
 
-In scala, things are a little simpler thanks to anaphora: the ability
+
+p. In Scala, things are a little simpler thanks to anaphora: the ability
 to easily reference earlier state implicitly. That's what the _ means
 in this context.
+
 
 {% highlight scala %}
 feed.entries.filter(!_.categories.filter(_.term == "http://schemas.google.com/blogger/2008/kind#post").isEmpty)
 {% endhighlight %}
+
+
+p. Imagine the following sentence in English: "Steve used Steve's keys to
+start Steve's car". Most programming languages insist on that level of
+verbosity.
+
+
+p. Raganwald has a nice "piece":http://github.com/raganwald/homoiconic/blob/master/2009-09-22/anaphora.md#readme exploring Anaphora in Ruby.
+
