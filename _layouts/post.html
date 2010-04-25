@@ -2,11 +2,10 @@
 layout: default
 ---
 <div class="post">
-  <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
   <article class="post-body">
     {{ content }}
   </article>
   <p class="signoff">
-    {{ post.location }} &mdash; {{ post.date | date: "%d %B, %Y" }}
+    <a href="{{page.url}}">#</a> {{ page.location }} &mdash; {{ page.date | date: "%d %B, %Y" }}
   </p>
 </div>
