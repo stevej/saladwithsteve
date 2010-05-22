@@ -1,0 +1,11 @@
+---
+layout: default
+title: "Archives!"
+---
+<ul>
+{% for post in site.posts %}
+  <li><a href="{{post.url}}">{{post.title}} &mdash; {{post.date | date: "%d %B, %Y"}}</a></li>
+{% endfor %}
+Yes, the ones from the 1970's are bugs and will soon be fixed.
+</ul>
+
