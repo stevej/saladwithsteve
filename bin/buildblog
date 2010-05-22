@@ -3,5 +3,6 @@ cd ~/src/saladwithsteve
 git pull origin master
 ruby ~/src/jekyll/bin/jekyll --no-auto . ~/new.saladwithsteve.com/
 # new is a staging site
+echo "copying from new to live"
 cp -R ~/new.saladwithsteve.com/* ~/saladwithsteve.com/
 
