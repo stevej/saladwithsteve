@@ -118,7 +118,7 @@ a img {
 #searchform #s {
     width:160px;
     height:17px;
-    border:0;
+    border: 1px solid #781351;
     color:#796a4b;
     padding-top:3px;
     background-color:transparent;
