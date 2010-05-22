@@ -1,5 +1,5 @@
 auto: true
-server: true
+server: false
 server_port: 4000
 pygments: true
 lsi: false
