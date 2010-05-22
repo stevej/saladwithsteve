@@ -1,0 +1,30 @@
+---
+layout: post
+location: San Francisco
+title: Hello Again!
+---
+
+h1. {{page.title}}
+
+p. I've changed some things around here.
+
+p. This site is now generated with
+"Jekyll":http://github.com/stevej/jekyll
+
+Switching from Blogger wasn't an easy decision but I felt like it was
+time to jump start things and make it fun to write and tinker here
+again.
+
+Something that didn't make the conversion were all of the old
+comments. Jekyll doesn't support comments. I considered porting them
+over statically but I had already sat on the conversion for 6 months
+and was ready to move on. See, I actually switched back in December
+but had never actually updated this version of the site.
+
+People left many wonderful comments. In the future, I'd like to
+encourage you to simply email me. My email address is in the 'About
+Me' page linked at the top. If you'd like me to post your response,
+let me know.
+
+Oh, you can also see a mirror of all my content on the blog's "github
+repo":http://github.com/stevej/saladwithsteve
