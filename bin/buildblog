@@ -1,0 +1,7 @@
+#!/bin/sh
+cd ~/src/saladwithsteve
+git pull origin master
+ruby ~/src/jekyll/bin/jekyll --no-auto . ~/new.saladwithsteve.com/
+# new is a staging site
+cp ~/new.saladwithsteve.com/* ~/saladwithsteve.com/
+
