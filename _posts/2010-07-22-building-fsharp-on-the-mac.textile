@@ -36,10 +36,10 @@ p. And now you're ready go to run it and write some programs. There
 are some known bugs around how it interacts with mono winforms so
 we'll turn that off.
 
-@$ mono fsharp/bin/fsi.exe --gui-@
-
+p. @$ mono fsharp/bin/fsi.exe --gui-@
 
 p. Now let's run the repl.
+
 <tt>
 Microsoft (R) F# 2.0 Interactive build 2.0.0.0<br />
 Copyright (c) Microsoft Corporation. All Rights Reserved. <br />
