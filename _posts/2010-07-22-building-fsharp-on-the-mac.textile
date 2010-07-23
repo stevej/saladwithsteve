@@ -20,48 +20,36 @@ p. First install Mono, there's a "dmg":http://www.go-mono.com/mono-downloads/dow
 2. Run @make_package.sh@
 
 p. This will complain about not finding @dpkg-buildpackage@ but the dll will be signed with the mono key and be ready to use.
-<code>
-Assembly bin/FSharp.Core.dll signed.
-</code>
-<code>
+
+<tt>
+Assembly bin/FSharp.Core.dll signed. <br />
 ./make_package.sh: line 19: dpkg-buildpackage: command not found
-</code>
+</tt>
 
 p. Now run @gacutil@ which will install the assembly into mono's library path.
 
-<code>
+<tt>
 sudo gacutil -i ./fsharp/bin/FSharp.Core.dll
-</code>
+</tt>
 
 p. And now you're ready go to run it and write some programs. There
 are some known bugs around how it interacts with mono winforms so
 we'll turn that off.
 
-<code>
-$ mono fsharp/bin/fsi.exe --gui-
-</code>
+@$ mono fsharp/bin/fsi.exe --gui-@
+
 
 p. Now let's run the repl.
-<code>
-Microsoft (R) F# 2.0 Interactive build 2.0.0.0
-</code>
-<code>
-Copyright (c) Microsoft Corporation. All Rights Reserved.
-</code>
-<code>
-For help type #help;;
-</code>
-<code>
-&gt; printf "hi\n";;
-</code>
-hi
-<code>
-val it : unit = ()
-</code>
-<code>
-&gt; #q;;
-
-- Exit...
-</code>
+<tt>
+Microsoft (R) F# 2.0 Interactive build 2.0.0.0<br />
+Copyright (c) Microsoft Corporation. All Rights Reserved. <br />
+For help type #help;; <br />
+&gt; printf "hi\n";; <br />
+hi <br />
+val it : unit = () <br />
+&gt; #q;;<br />
+<br />
+- Exit...<br />
+</tt>
 
 p. Joe says that they are working on getting DMGs up for Mac users ASAP. (within days)
