@@ -10,7 +10,7 @@ layout: nil
  <id>http://saladwithsteve.com/</id>
  <author>
    <name>Steve Jenson</name>
-   <email>stevej@pobox.com</email>
+   <email>stevej@fruitless.org</email>
  </author>
  {% for post in site.posts limit:20 %}
  <entry>
