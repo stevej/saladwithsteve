@@ -32,11 +32,11 @@ p. Now run @gacutil@ which will install the assembly into mono's library path.
 sudo gacutil -i ./fsharp/bin/FSharp.Core.dll
 </tt>
 
-p. And now you're ready go to run it and write some programs. There
-are some known bugs around how it interacts with mono winforms so
-we'll turn that off.
+p. And now you're ready to write some programs! There are some known
+bugs around how it interacts with mono winforms (I think that's a
+thing, it's greek to me) so we'll turn that off.
 
-p. Now let's run the repl, run an expression, and exit.
+p. Now let's fire up the repl, run an expression, and exit.
 
 <tt>
 $ mono fsharp/bin/fsi.exe --gui- <br />
