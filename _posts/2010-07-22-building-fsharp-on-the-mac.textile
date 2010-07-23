@@ -22,6 +22,8 @@ p. First install Mono, there's a "dmg":http://www.go-mono.com/mono-downloads/dow
 p. This will complain about not finding @dpkg-buildpackage@ but the dll will be signed with the mono key and be ready to use.
 <code>
 Assembly bin/FSharp.Core.dll signed.
+</code>
+<code>
 ./make_package.sh: line 19: dpkg-buildpackage: command not found
 </code>
 
@@ -39,15 +41,24 @@ we'll turn that off.
 $ mono fsharp/bin/fsi.exe --gui-
 </code>
 
+p. Now let's run the repl.
 <code>
 Microsoft (R) F# 2.0 Interactive build 2.0.0.0
+</code>
+<code>
 Copyright (c) Microsoft Corporation. All Rights Reserved.
-
+</code>
+<code>
 For help type #help;;
-
+</code>
+<code>
 &gt; printf "hi\n";;
+</code>
 hi
+<code>
 val it : unit = ()
+</code>
+<code>
 &gt; #q;;
 
 - Exit...
