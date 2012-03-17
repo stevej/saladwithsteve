@@ -1,5 +1,5 @@
 ---
 layout: post
-title: ""
+title: 
 ---
 Something I failed to mention regarding using a webserver's built-in HTTP Authentication for the metaWeblog API is that the API isn't designed to be exposed in a particular way. If you choose to only use HTTP Authentication, then you lose transport independence, and you can't really expose it via SOAP. XML-RPC, even though not explicitly designed to be transport independent has none-the-less become so as we see XML-RPC over SMTP and XML-RPC over Jabber. I would really hate to lose transport independence for the sake of laziness.

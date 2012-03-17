@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "openmcl handles utf8 decently"
+title: openmcl handles utf8 decently
 ---
 I tested openmcl recently to see if it can store and print UTF-8 without harming it. Worked like a charm. You can most likely attribute this to <a href="http://www.lispworks.com/reference/HyperSpec/Body/13_ac.htm">CLHS 13.1.3</a> that says a character is a non-negative integer. In Lisp, an integer has no upper bound.
     <br /><br />
