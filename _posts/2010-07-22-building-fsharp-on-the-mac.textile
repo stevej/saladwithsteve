@@ -4,8 +4,6 @@ location: Portland, OR
 title: Building F# on Mac OS X
 ---
 
-h1. {{page.title}}
-
 p. I'm attending the Emerging Languages Conference here in Portland,
 OR, where I ran into Joe Pamer on the F# team. I've been following F#
 for a while but have had trouble running it on the Mac.
