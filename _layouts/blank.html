@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="{{ site.encoding }}">
+    {% if page.author %}<meta name="author" content="{{ page.author }}">{% endif %}
+    <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+    <title>{% if page.title %} {{ page.title }} › {% endif %}{{ site.title }}</title>
+    <link rel="canonical" href="{{ page.url | prepend: site.url }}">
+    <link rel="stylesheet" type="text/css" href="{{ "/basic.css" | prepend: site.baseurl }}">
+    <link rel="stylesheet" type="text/css" href="{{ "/highlight.css" | prepend: site.baseurl }}">
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,200italic,300italic,400italic,600italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Gentium+Basic:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link rel="alternate" type="application/atom+xml" title="{{ site.title }} &raquo; Feed" href="{{ "atom.xml" | prepend: site.baseurl }}">
+  </head>
+  <body>
+    <header>
+      <h1><a href="{{ / }}">{{ site.title }}</a></h1>
+      <nav>
+        <ul>
+          <li><a href="{{ site.url }}">Home</a></li>
+          {% for node in site.pages %}
+            {% if node.title %}
+            <li><a href="{{ node.url }}"{% if page.url == node.url %} id="selected"{% endif %}>{{ node.title }}</a></li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </nav>
+    </header>
+{{ content }}
+    <footer>
+      <span>Copyright <a href="{{ site.url }}">Steve Jenson</a> 2001 - {{ site.time | date: "%Y" }}</span>
+    </footer>
+  </body>
+</html>

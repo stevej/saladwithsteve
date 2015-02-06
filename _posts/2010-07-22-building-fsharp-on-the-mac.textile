@@ -4,37 +4,37 @@ location: Portland, OR
 title: Building F# on Mac OS X
 ---
 
-p. I'm attending the Emerging Languages Conference here in Portland,
+I'm attending the Emerging Languages Conference here in Portland,
 OR, where I ran into Joe Pamer on the F# team. I've been following F#
 for a while but have had trouble running it on the Mac.
 
-p. Joe says his team at Microsoft runs into these issues often with users
+Joe says his team at Microsoft runs into these issues often with users
 and was kind enough to walk me through the steps to get F# running on
 the mac.
 
-p. First install Mono, there's a "dmg":http://www.go-mono.com/mono-downloads/download.html
+First install Mono, there's a "dmg":http://www.go-mono.com/mono-downloads/download.html
 
 1. Download the "zip file":http://fsxplat.codeplex.com/SourceControl/list/changesets
 2. Run @make_package.sh@
 
-p. This will complain about not finding @dpkg-buildpackage@ but the dll will be signed with the mono key and be ready to use.
+This will complain about not finding @dpkg-buildpackage@ but the dll will be signed with the mono key and be ready to use.
 
 <tt>
 Assembly bin/FSharp.Core.dll signed. <br />
 ./make_package.sh: line 19: dpkg-buildpackage: command not found
 </tt>
 
-p. Now run @gacutil@ which will install the assembly into mono's library path.
+Now run @gacutil@ which will install the assembly into mono's library path.
 
 <tt>
 sudo gacutil -i ./fsharp/bin/FSharp.Core.dll
 </tt>
 
-p. And now you're ready to write some programs! There are some known
+And now you're ready to write some programs! There are some known
 bugs around how it interacts with mono winforms (I think that's a
 thing, it's greek to me) so we'll turn that off.
 
-p. Now let's fire up the repl, run an expression, and exit.
+Now let's fire up the repl, run an expression, and exit.
 
 <tt>
 $ mono fsharp/bin/fsi.exe --gui- <br />
@@ -49,4 +49,4 @@ val it : unit = () <br />
 - Exit...<br />
 </tt>
 
-p. Joe says that they are working on getting DMGs up for Mac users ASAP. (within days)
+Joe says that they are working on getting DMGs up for Mac users ASAP. (within days)
